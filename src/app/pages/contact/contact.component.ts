@@ -39,15 +39,15 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
     this.seo.updateSeo({
-      title: 'Contact Us – Tour and Travels King',
-      description: 'Get in touch with Tour and Travels King for Himalayan pilgrimage and adventure tour inquiries. Call, WhatsApp, or fill the form – we respond within 24 hours.',
-      keywords: 'contact Tour and Travels King, Himalayan tour inquiry, Savita Kohali contact, Uttarakhand tour booking',
+      title: 'Contact Us – Kumaon Yatra Tours',
+      description: 'Get in touch with Kumaon Yatra Tours for Himalayan pilgrimage and adventure tour inquiries. Call, WhatsApp, or fill the form – we respond within 24 hours.',
+      keywords: 'contact Kumaon Yatra Tours, Himalayan tour inquiry, Savita Kohali contact, Uttarakhand tour booking',
     });
 
     this.seo.addJsonLd({
       '@context': 'https://schema.org',
       '@type': 'ContactPage',
-      name: 'Contact – Tour and Travels King',
+      name: 'Contact – Kumaon Yatra Tours',
       description: 'Contact us for Himalayan pilgrimage and adventure tour inquiries.',
       url: 'https://www.tourandtravelsking.com/contact',
     });
@@ -82,7 +82,7 @@ export class ContactComponent implements OnInit {
 
     const v = this.contactForm.value;
     const lines = [
-      '*New Tour Inquiry – Tour and Travels King*',
+      '*New Tour Inquiry – Kumaon Yatra Tours*',
       '',
       `*Name:* ${v.fullName}`,
       `*Mobile:* ${v.mobile}`,

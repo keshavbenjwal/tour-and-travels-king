@@ -15,7 +15,7 @@ export interface SeoData {
 
 const BASE_URL = 'https://www.tourandtravelsking.com';
 const DEFAULT_IMAGE = `${BASE_URL}/assets/images/og-default.jpg`;
-const SITE_NAME = 'Tour and Travels King';
+const SITE_NAME = 'Kumaon Yatra Tours';
 
 @Injectable({ providedIn: 'root' })
 export class SeoService {

@@ -36,15 +36,15 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
     this.seo.updateSeo({
-      title: 'About Us – Tour and Travels King',
-      description: 'Learn about Tour and Travels King – Uttarakhand\'s trusted Himalayan tour operator specializing in Adi Kailash, Om Parvat, and Kumaon pilgrimage packages.',
-      keywords: 'about Tour and Travels King, Himalayan tour operator, Savita Kohali, Uttarakhand guides',
+      title: 'About Us – Kumaon Yatra Tours',
+      description: 'Learn about Kumaon Yatra Tours – Uttarakhand\'s trusted Himalayan tour operator specializing in Adi Kailash, Om Parvat, and Kumaon pilgrimage packages.',
+      keywords: 'about Kumaon Yatra Tours, Himalayan tour operator, Savita Kohali, Uttarakhand guides',
     });
 
     this.seo.addJsonLd({
       '@context': 'https://schema.org',
       '@type': 'TravelAgency',
-      name: 'Tour and Travels King',
+      name: 'Kumaon Yatra Tours',
       description: 'Expert-guided Himalayan pilgrimage and adventure tours in Uttarakhand, India.',
       founder: { '@type': 'Person', name: 'Savita Kohali' },
       foundingDate: '2014',

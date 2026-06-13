@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       name: 'Priya Nair',
       location: 'Bengaluru',
-      text: 'I was nervous about a high-altitude Himalayan trek, but Tour and Travels King made it so comfortable. The acclimatization schedule was perfect, the food was delicious, and the views of Panchachuli at dawn from Chaukori were absolutely magical.',
+      text: 'I was nervous about a high-altitude Himalayan trek, but Kumaon Yatra Tours made it so comfortable. The acclimatization schedule was perfect, the food was delicious, and the views of Panchachuli at dawn from Chaukori were absolutely magical.',
       rating: 5,
       package: 'Adi Kailash 9 Days'
     },
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       name: 'Suresh Iyer',
       location: 'Mumbai',
-      text: 'Third time traveling with Tour and Travels King. The team knows the Kumaon Himalayas like the back of their hand. The 4-day package was perfectly paced for a working professional. Adi Kailash darshan was the spiritual highlight of my year.',
+      text: 'Third time traveling with Kumaon Yatra Tours. The team knows the Kumaon Himalayas like the back of their hand. The 4-day package was perfectly paced for a working professional. Adi Kailash darshan was the spiritual highlight of my year.',
       rating: 5,
       package: 'Adi Kailash 4 Days'
     },
@@ -95,7 +95,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.seo.updateSeo({
-      title: 'Tour and Travels King – Explore the Sacred Himalayas',
+      title: 'Kumaon Yatra Tours – Explore the Sacred Himalayas',
       description: 'Book the best Adi Kailash, Om Parvat, Panchachuli, and Darma Valley tour packages. Expert-guided Himalayan pilgrimages and adventures from Uttarakhand.',
       keywords: 'Adi Kailash tour, Om Parvat darshan, Panchachuli base camp, Darma Valley trek, Uttarakhand pilgrimage, Himalayan tours',
       ogType: 'website',
@@ -104,7 +104,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.seo.addJsonLd({
       '@context': 'https://schema.org',
       '@type': 'TravelAgency',
-      name: 'Tour and Travels King',
+      name: 'Kumaon Yatra Tours',
       description: 'Expert-guided Himalayan pilgrimage and adventure tours in Uttarakhand, India.',
       url: 'https://www.tourandtravelsking.com',
       telephone: '+919675259958',

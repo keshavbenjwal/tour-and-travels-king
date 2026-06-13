@@ -28,14 +28,14 @@ export class PackagesComponent implements OnInit {
 
     this.seo.updateSeo({
       title: 'Tour Packages – Adi Kailash, Om Parvat & Himalayan Tours',
-      description: 'Browse all Tour and Travels King Himalayan packages – 4-day to 9-day tours covering Adi Kailash, Om Parvat, Darma Valley, Panchachuli, and the best of Kumaon.',
+      description: 'Browse all Kumaon Yatra Tours Himalayan packages – 4-day to 9-day tours covering Adi Kailash, Om Parvat, Darma Valley, Panchachuli, and the best of Kumaon.',
       keywords: 'Adi Kailash packages, Om Parvat tour packages, Himalayan pilgrimage packages, Uttarakhand tour packages, Panchachuli trek',
     });
 
     this.seo.addJsonLd({
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      name: 'Tour and Travels King – Himalayan Packages',
+      name: 'Kumaon Yatra Tours – Himalayan Packages',
       itemListElement: this.packages.map((p, i) => ({
         '@type': 'ListItem',
         position: i + 1,

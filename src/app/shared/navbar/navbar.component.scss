@@ -132,6 +132,12 @@
 
 /* Mobile */
 @media (max-width: 900px) {
+  /* backdrop-filter on .scrolled creates a containing block for position:fixed children,
+     trapping the nav panel inside the navbar height. Disable it on mobile. */
+  .navbar.scrolled {
+    backdrop-filter: none;
+  }
+
   .hamburger {
     display: flex;
   }

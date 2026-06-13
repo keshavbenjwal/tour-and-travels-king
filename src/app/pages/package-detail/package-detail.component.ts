@@ -55,7 +55,7 @@ export class PackageDetailComponent implements OnInit {
       duration: `P${pkg.days}D`,
       provider: {
         '@type': 'TravelAgency',
-        name: 'Tour and Travels King',
+        name: 'Kumaon Yatra Tours',
         url: 'https://www.tourandtravelsking.com',
         telephone: '+919675259958'
       },

@@ -52,7 +52,7 @@ export class PackagesService {
       maxAltitude: '4,750 m (Jolingkong)',
       groupSize: '2–20 Persons',
       badge: 'Popular',
-      metaDescription: 'Explore Adi Kailash and Om Parvat with this 4-day expedition. Witness the natural Shivling, Jolingkong Holy Lake, and panoramic Panchachuli views with Tour and Travels King.',
+      metaDescription: 'Explore Adi Kailash and Om Parvat with this 4-day expedition. Witness the natural Shivling, Jolingkong Holy Lake, and panoramic Panchachuli views with Kumaon Yatra Tours.',
       keywords: 'Adi Kailash 4 days, Om Parvat tour, Panchachuli base camp, Jolingkong lake, Uttarakhand pilgrimage',
       highlights: [
         'Darshan of Om Parvat – the natural snow Shivling',
@@ -200,7 +200,7 @@ export class PackagesService {
           day: 6,
           title: 'Pithoragarh → Kathgodam / Departure',
           altitude: '915 m (Kathgodam)',
-          description: 'Breakfast and final checkout. Drive to Kathgodam or connect to your onward journey. Your Tour and Travels King representative will assist with your departure. We bid you farewell with memories that will last a lifetime.'
+          description: 'Breakfast and final checkout. Drive to Kathgodam or connect to your onward journey. Your Kumaon Yatra Tours representative will assist with your departure. We bid you farewell with memories that will last a lifetime.'
         }
       ]
     },
@@ -240,7 +240,7 @@ export class PackagesService {
         'Professional trekking guide',
         'Ponies/porters for base camps (if required)',
         'First Aid and emergency evacuation support',
-        'Welcome kit with Tour and Travels King essentials'
+        'Welcome kit with Kumaon Yatra Tours essentials'
       ],
       excludes: [
         'Travel to/from Kathgodam',
@@ -336,7 +336,7 @@ export class PackagesService {
         'All entry fees and toll taxes',
         'Porterage at trekking sections',
         'First Aid, oxygen cylinder, emergency support',
-        'Tour and Travels King welcome kit'
+        'Kumaon Yatra Tours welcome kit'
       ],
       excludes: [
         'Travel to Delhi or Kathgodam',
@@ -422,7 +422,7 @@ export class PackagesService {
       maxAltitude: '4,400 m (Panchachuli Base Camp)',
       groupSize: '4–14 Persons',
       badge: 'Adventure',
-      metaDescription: 'Trek the remote Darma Valley and reach the Panchachuli Base Camp for up-close views of the five sacred peaks in the Kumaon Himalayas with Tour and Travels King.',
+      metaDescription: 'Trek the remote Darma Valley and reach the Panchachuli Base Camp for up-close views of the five sacred peaks in the Kumaon Himalayas with Kumaon Yatra Tours.',
       keywords: 'Darma Valley trek, Panchachuli Base Camp, Kumaon adventure trek, remote Himalayan trek, Uttarakhand trekking',
       highlights: [
         'Panchachuli Base Camp at 4,400 m',

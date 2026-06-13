@@ -13,6 +13,6 @@ export default `<!doctype html>
 <style>:root{--primary:#1a3c5e;--primary-light:#2a5a8e;--primary-dark:#0f2540;--secondary:#e07b39;--secondary-light:#f0a06a;--accent:#2e7d32;--gold:#c9a227;--gold-light:#e8c84e;--light:#f8f4ef;--light-gray:#f5f5f5;--dark:#1a1a2e;--text:#333333;--text-light:#666666;--text-muted:#999999;--white:#ffffff;--border:#e0d8d0;--shadow-sm:0 2px 8px rgba(0, 0, 0, .08);--shadow:0 4px 20px rgba(0, 0, 0, .1);--shadow-lg:0 8px 40px rgba(0, 0, 0, .15);--shadow-xl:0 16px 60px rgba(0, 0, 0, .2);--radius-sm:4px;--radius:8px;--radius-lg:16px;--radius-xl:24px;--transition:.3s ease;--navbar-height:72px;--container-max:1280px}*,*:before,*:after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;font-size:16px}body{font-family:Lato,sans-serif;font-weight:400;color:var(--text);background-color:var(--white);line-height:1.7;overflow-x:hidden}</style><link rel="stylesheet" href="styles-FGQCCUH7.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-FGQCCUH7.css"></noscript></head>
 <body ngcm="">
   <app-root></app-root>
-<link rel="modulepreload" href="chunk-TUI3L6BK.js"><script src="main-JRDVWY4L.js" type="module"></script></body>
+<link rel="modulepreload" href="chunk-TUI3L6BK.js"><script src="main-752QQ6YF.js" type="module"></script></body>
 </html>
 `;
