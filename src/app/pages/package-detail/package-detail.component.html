@@ -1,0 +1,260 @@
+@if (notFound) {
+  <div class="not-found-wrap">
+    <div class="container">
+      <i class="fas fa-map-marked-alt not-found-icon"></i>
+      <h2>Package Not Found</h2>
+      <p>The package you're looking for doesn't exist or has been removed.</p>
+      <a routerLink="/packages" class="btn btn-primary btn-lg">View All Packages</a>
+    </div>
+  </div>
+}
+
+@if (package) {
+  <!-- Package Hero -->
+  <section class="pkg-hero">
+    <div class="pkg-hero-bg"
+         [style.background-image]="'url(https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80)'">
+    </div>
+    <div class="pkg-hero-overlay"></div>
+    <div class="container pkg-hero-content">
+      <nav class="breadcrumb">
+        <a routerLink="/">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <a routerLink="/packages">Packages</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>{{ package.shortTitle }}</span>
+      </nav>
+      <div class="pkg-hero-badges">
+        <span class="badge badge-secondary">{{ package.duration }}</span>
+        <span class="badge" [class]="'badge-diff-' + package.difficulty.toLowerCase()">{{ package.difficulty }}</span>
+        @if (package.badge) {
+          <span class="badge badge-gold">{{ package.badge }}</span>
+        }
+      </div>
+      <h1>{{ package.title }}</h1>
+      <div class="pkg-quick-info">
+        <div class="qi-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <span class="qi-label">Starts At</span>
+            <span class="qi-val">{{ package.startLocation }}</span>
+          </div>
+        </div>
+        <div class="qi-item">
+          <i class="fas fa-mountain"></i>
+          <div>
+            <span class="qi-label">Max Altitude</span>
+            <span class="qi-val">{{ package.maxAltitude }}</span>
+          </div>
+        </div>
+        <div class="qi-item">
+          <i class="fas fa-users"></i>
+          <div>
+            <span class="qi-label">Group Size</span>
+            <span class="qi-val">{{ package.groupSize }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky Booking Bar -->
+  <div class="booking-bar">
+    <div class="container booking-bar-inner">
+      <div class="bb-price">
+        @if (package.originalPrice > package.price) {
+          <span class="bb-original">₹{{ formatPrice(package.originalPrice) }}</span>
+        }
+        <span class="bb-price-val">₹{{ formatPrice(package.price) }}</span>
+        <span class="bb-per">/ person</span>
+        @if (package.originalPrice > package.price) {
+          <span class="bb-save">Save ₹{{ formatPrice(getSavings(package)) }}</span>
+        }
+      </div>
+      <div class="bb-actions">
+        <a href="https://wa.me/919675259958?text=I'm%20interested%20in%20{{ package.title }}" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+        <a routerLink="/contact" [queryParams]="{package: package.title}" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> Book / Enquire
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <section class="section pkg-detail-section">
+    <div class="container pkg-detail-layout">
+
+      <!-- Left: Tabs Content -->
+      <div class="pkg-main">
+        <!-- Tabs -->
+        <div class="pkg-tabs">
+          @for (tab of tabs; track tab.id) {
+            <button class="tab-btn" [class.active]="activeTab === tab.id" (click)="setTab(tab.id)">
+              {{ tab.label }}
+            </button>
+          }
+        </div>
+
+        <!-- Overview Tab -->
+        @if (activeTab === 'overview') {
+          <div class="tab-content">
+            <h2>Package Overview</h2>
+            <p class="overview-text">{{ package.overview }}</p>
+
+            <h3>Tour Highlights</h3>
+            <div class="highlights-grid">
+              @for (h of package.highlights; track h) {
+                <div class="highlight-chip">
+                  <i class="fas fa-check-circle"></i>
+                  <span>{{ h }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Itinerary Tab -->
+        @if (activeTab === 'itinerary') {
+          <div class="tab-content">
+            <h2>Day-wise Itinerary</h2>
+            <div class="itinerary-list">
+              @for (day of package.itinerary; track day.day) {
+                <div class="day-item" [class.open]="openDay === day.day">
+                  <button class="day-header" (click)="toggleDay(day.day)">
+                    <div class="day-num">Day {{ day.day }}</div>
+                    <div class="day-info">
+                      <span class="day-title">{{ day.title }}</span>
+                      <div class="day-chips">
+                        @if (day.altitude) {
+                          <span><i class="fas fa-mountain"></i> {{ day.altitude }}</span>
+                        }
+                        @if (day.distance) {
+                          <span><i class="fas fa-route"></i> {{ day.distance }}</span>
+                        }
+                      </div>
+                    </div>
+                    <i class="fas" [class.fa-chevron-down]="openDay !== day.day" [class.fa-chevron-up]="openDay === day.day"></i>
+                  </button>
+                  <div class="day-body">
+                    <p>{{ day.description }}</p>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Inclusions Tab -->
+        @if (activeTab === 'inclusions') {
+          <div class="tab-content">
+            <div class="inc-exc-grid">
+              <div class="inc-col">
+                <h3><i class="fas fa-check-circle text-success"></i> Package Includes</h3>
+                <ul class="inc-list">
+                  @for (item of package.includes; track item) {
+                    <li><i class="fas fa-check"></i> {{ item }}</li>
+                  }
+                </ul>
+              </div>
+              <div class="exc-col">
+                <h3><i class="fas fa-times-circle text-danger"></i> Package Excludes</h3>
+                <ul class="exc-list">
+                  @for (item of package.excludes; track item) {
+                    <li><i class="fas fa-times"></i> {{ item }}</li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Right: Booking Card -->
+      <aside class="pkg-sidebar">
+        <div class="booking-card">
+          <div class="bc-header">
+            <div class="bc-price">
+              @if (package.originalPrice > package.price) {
+                <span class="bc-original">₹{{ formatPrice(package.originalPrice) }}</span>
+              }
+              <span class="bc-amount">₹{{ formatPrice(package.price) }}</span>
+              <span class="bc-per">per person</span>
+            </div>
+            @if (package.originalPrice > package.price) {
+              <span class="bc-save-chip">You save ₹{{ formatPrice(getSavings(package)) }}!</span>
+            }
+          </div>
+
+          <div class="bc-details">
+            <div class="bc-row">
+              <span><i class="fas fa-calendar-alt"></i> Duration</span>
+              <strong>{{ package.duration }}</strong>
+            </div>
+            <div class="bc-row">
+              <span><i class="fas fa-map-marker-alt"></i> Starts At</span>
+              <strong>{{ package.startLocation }}</strong>
+            </div>
+            <div class="bc-row">
+              <span><i class="fas fa-tachometer-alt"></i> Difficulty</span>
+              <strong>{{ package.difficulty }}</strong>
+            </div>
+            <div class="bc-row">
+              <span><i class="fas fa-mountain"></i> Max Altitude</span>
+              <strong>{{ package.maxAltitude }}</strong>
+            </div>
+            <div class="bc-row">
+              <span><i class="fas fa-users"></i> Group Size</span>
+              <strong>{{ package.groupSize }}</strong>
+            </div>
+          </div>
+
+          <a routerLink="/contact" class="btn btn-primary btn-lg" style="width:100%; margin-bottom:0.75rem">
+            <i class="fas fa-paper-plane"></i> Enquire / Book Now
+          </a>
+          <a href="tel:+919675259958" class="btn btn-outline-primary" style="width:100%; margin-bottom:0.75rem">
+            <i class="fas fa-phone"></i> +91 96752 59958
+          </a>
+          <a href="https://wa.me/919675259958" target="_blank" rel="noopener" class="btn" style="width:100%; background:#25d366; color:white">
+            <i class="fab fa-whatsapp"></i> WhatsApp Us
+          </a>
+
+          <p class="bc-note">
+            <i class="fas fa-shield-alt"></i>
+            Free cancellation up to 7 days before departure.
+          </p>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+          <h4><i class="fas fa-info-circle"></i> Good to Know</h4>
+          <ul>
+            <li>Best time: May–June, Sep–Oct</li>
+            <li>Inner Line Permit included</li>
+            <li>All meals included</li>
+            <li>24/7 emergency support</li>
+            <li>Experienced certified guide</li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- Inquiry CTA -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Interested in {{ package.shortTitle }}?</h2>
+      <p>Talk to our Himalayan experts and let us customize this journey for you. No commitment, just helpful guidance.</p>
+      <div class="cta-actions">
+        <a routerLink="/contact" class="btn btn-primary btn-lg">
+          <i class="fas fa-paper-plane"></i> Send Inquiry
+        </a>
+        <a routerLink="/packages" class="btn btn-outline btn-lg">
+          <i class="fas fa-th-large"></i> All Packages
+        </a>
+      </div>
+    </div>
+  </section>
+}

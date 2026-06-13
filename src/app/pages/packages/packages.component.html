@@ -1,0 +1,102 @@
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1600&q=80')"></div>
+  <div class="page-hero-content container">
+    <nav class="breadcrumb">
+      <a routerLink="/">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Tour Packages</span>
+    </nav>
+    <h1>Our Himalayan Tour Packages</h1>
+    <p>Choose from our curated range of spiritual and adventure packages</p>
+  </div>
+</section>
+
+<!-- Filter Bar -->
+<div class="filter-bar">
+  <div class="container">
+    <div class="filter-inner">
+      <span class="filter-label"><i class="fas fa-filter"></i> Filter by:</span>
+      <div class="filter-btns">
+        @for (d of difficulties; track d) {
+          <button class="filter-btn" [class.active]="selectedDifficulty === d"
+                  (click)="setFilter(d)">{{ d }}</button>
+        }
+      </div>
+      <span class="results-count">{{ filteredPackages.length }} package{{ filteredPackages.length !== 1 ? 's' : '' }} found</span>
+    </div>
+  </div>
+</div>
+
+<!-- Packages Grid -->
+<section class="section">
+  <div class="container">
+    <div class="all-packages-grid">
+      @for (pkg of filteredPackages; track pkg.id) {
+        <article class="pkg-card">
+          @if (pkg.badge) {
+            <span class="pkg-badge">{{ pkg.badge }}</span>
+          }
+          <div class="pkg-image">
+            <img [src]="'https://images.unsplash.com/photo-' + ['1506905925346-21bda4d32df4','1551632811-561732d1e306','1519681393784-d120267933ba','1464822759023-fed622ff2c3b','1454496522488-7a8e488e8606'][+pkg.id - 1] + '?auto=format&fit=crop&w=600&q=80'"
+                 [alt]="pkg.title + ' package'"
+                 loading="lazy">
+            <div class="pkg-difficulty" [class]="pkg.difficulty.toLowerCase()">{{ pkg.difficulty }}</div>
+            <div class="pkg-duration-chip">
+              <i class="fas fa-calendar"></i> {{ pkg.duration }}
+            </div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-meta">
+              <span><i class="fas fa-map-marker-alt"></i> {{ pkg.startLocation }}</span>
+              <span><i class="fas fa-mountain"></i> {{ pkg.maxAltitude }}</span>
+              <span><i class="fas fa-users"></i> {{ pkg.groupSize }}</span>
+            </div>
+            <h2>{{ pkg.title }}</h2>
+            <p class="pkg-overview">{{ pkg.overview.substring(0, 150) }}...</p>
+
+            <div class="pkg-highlights-wrap">
+              @for (h of pkg.highlights.slice(0, 4); track h) {
+                <span class="h-chip"><i class="fas fa-check-circle"></i> {{ h }}</span>
+              }
+            </div>
+
+            <div class="pkg-footer">
+              <div class="pkg-price">
+                @if (pkg.originalPrice > pkg.price) {
+                  <span class="original">₹{{ formatPrice(pkg.originalPrice) }}</span>
+                }
+                <span class="price">₹{{ formatPrice(pkg.price) }}</span>
+                <span class="per">/ person</span>
+              </div>
+              <div class="pkg-actions">
+                <a href="tel:+919675259958" class="btn btn-outline-primary btn-sm">
+                  <i class="fas fa-phone"></i>
+                </a>
+                <a [routerLink]="'/packages/' + pkg.slug" class="btn btn-primary btn-sm">
+                  View Details <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>Can't Find the Right Package?</h2>
+    <p>We offer custom Himalayan itineraries tailored to your schedule, budget, and interests. Let's create your perfect journey.</p>
+    <div class="cta-actions">
+      <a routerLink="/contact" class="btn btn-primary btn-lg">
+        <i class="fas fa-paper-plane"></i> Request Custom Tour
+      </a>
+      <a href="https://wa.me/919675259958" target="_blank" rel="noopener" class="btn btn-outline btn-lg">
+        <i class="fab fa-whatsapp"></i> Chat with Us
+      </a>
+    </div>
+  </div>
+</section>

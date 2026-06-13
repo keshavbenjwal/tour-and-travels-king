@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="7" fill="#1a3c5e"/>
+  <!-- Back mountain (blue) -->
+  <polygon points="19,7 30,27 8,27" fill="#2a5a8e"/>
+  <!-- Snow cap (back) -->
+  <polygon points="19,7 16.2,14 21.8,14" fill="#f0f4f8"/>
+  <!-- Front mountain (gold) -->
+  <polygon points="12,9 24,27 0,27" fill="#c9a227"/>
+  <!-- Snow cap (front) -->
+  <polygon points="12,9 9,17 15,17" fill="white"/>
+  <!-- Sun dot -->
+  <circle cx="26" cy="7" r="2.5" fill="#e8c84e"/>
+</svg>

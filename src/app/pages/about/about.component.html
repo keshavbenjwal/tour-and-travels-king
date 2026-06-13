@@ -1,0 +1,116 @@
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&w=1600&q=80')"></div>
+  <div class="page-hero-content container">
+    <nav class="breadcrumb">
+      <a routerLink="/">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>About Us</span>
+    </nav>
+    <h1>About Tour &amp; Travels King</h1>
+    <p>A Decade of Sacred Himalayan Journeys</p>
+  </div>
+</section>
+
+<!-- Our Story -->
+<section class="section">
+  <div class="container">
+    <div class="about-story">
+      <div class="story-image">
+        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=700&q=80"
+             alt="Himalayan trekking guide leading group">
+        <div class="exp-badge">
+          <span class="num">10+</span>
+          <span class="label">Years of Himalayan Expertise</span>
+        </div>
+      </div>
+      <div class="story-content">
+        <span class="section-tag">Our Story</span>
+        <h2>Born from a Love for the Sacred Himalayas</h2>
+        <p>Tour and Travels King was founded with a single vision: to make the sacred and remote Himalayan destinations of Uttarakhand accessible to every devotee and adventurer – safely, comfortably, and meaningfully.</p>
+        <p>Our founder, Savita Kohali, grew up in the Kumaon hills and has spent over a decade personally guiding pilgrims to Adi Kailash, Om Parvat, Darma Valley, and the many lesser-known gems of the Pithoragarh district. Every package we offer has been personally walked, refined, and approved by our team.</p>
+        <p>Today, we are proud to have guided over 500 pilgrims and trekkers on transformative Himalayan journeys – and we carry each one of those experiences with us when we design new tours.</p>
+
+        <div class="story-stats">
+          @for (s of stats; track s.label) {
+            <div class="s-stat">
+              <span class="s-num">{{ s.num }}</span>
+              <span class="s-label">{{ s.label }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Values -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Our Values</span>
+      <h2>What We Stand For</h2>
+      <p>Our operations are guided by four core values that we apply to every single journey we conduct.</p>
+      <div class="divider">
+        <div class="line"></div><div class="dot"></div><div class="line"></div>
+      </div>
+    </div>
+
+    <div class="values-grid">
+      @for (v of values; track v.title) {
+        <div class="value-card">
+          <div class="v-icon"><i [class]="v.icon"></i></div>
+          <h3>{{ v.title }}</h3>
+          <p>{{ v.desc }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Meet the Team -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Our Team</span>
+      <h2>Your Himalayan Host</h2>
+      <div class="divider">
+        <div class="line"></div><div class="dot"></div><div class="line"></div>
+      </div>
+    </div>
+
+    <div class="team-wrap">
+      @for (member of team; track member.name) {
+        <div class="team-card">
+          <div class="team-avatar">
+            <i [class]="member.icon"></i>
+          </div>
+          <h3>{{ member.name }}</h3>
+          <span class="role">{{ member.role }}</span>
+          <p>{{ member.desc }}</p>
+          <div class="team-contact">
+            <a href="tel:+919675259958" class="btn btn-outline-primary btn-sm">
+              <i class="fas fa-phone"></i> +91 96752 59958
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>Ready to Explore the Sacred Himalayas?</h2>
+    <p>Let us plan your perfect pilgrimage or adventure. Reach out and we'll respond within 24 hours.</p>
+    <div class="cta-actions">
+      <a routerLink="/packages" class="btn btn-primary btn-lg">
+        <i class="fas fa-compass"></i> View Packages
+      </a>
+      <a routerLink="/contact" class="btn btn-outline btn-lg">
+        <i class="fas fa-envelope"></i> Contact Us
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,267 @@
+<!-- ===== HERO SECTION ===== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content container">
+    <div class="hero-badge">
+      <i class="fas fa-star"></i>
+      <span>Uttarakhand's Most Trusted Himalayan Tour Operator</span>
+    </div>
+    <h1 class="hero-title">
+      Explore the Sacred<br>
+      <span class="highlight">Himalayas</span>
+    </h1>
+    <p class="hero-subtitle">With Comfort, Adventure &amp; Devotion</p>
+    <p class="hero-desc">
+      Experience the divine beauty of Adi Kailash, Om Parvat, and the pristine Himalayan valleys of Kumaon. Let us guide you on the journey of a lifetime.
+    </p>
+    <div class="hero-actions">
+      <a routerLink="/packages" class="btn btn-primary btn-lg">
+        <i class="fas fa-compass"></i> Explore Packages
+      </a>
+      <a routerLink="/contact" class="btn btn-outline btn-lg">
+        <i class="fas fa-phone"></i> Book Free Consultation
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">500+</span>
+        <span class="stat-label">Happy Pilgrims</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">5</span>
+        <span class="stat-label">Curated Packages</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">10+</span>
+        <span class="stat-label">Years Experience</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- ===== WHY CHOOSE US ===== -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Why Travel With Us</span>
+      <h2>Your Himalayan Journey, Our Sacred Responsibility</h2>
+      <p>We don't just run tours – we craft spiritual experiences backed by local expertise, genuine care, and unwavering commitment to your safety.</p>
+      <div class="divider">
+        <div class="line"></div>
+        <div class="dot"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <div class="why-grid">
+      @for (item of whyChooseUs; track item.title) {
+        <div class="why-card">
+          <div class="why-icon">
+            <i [class]="item.icon"></i>
+          </div>
+          <h4>{{ item.title }}</h4>
+          <p>{{ item.desc }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURED PACKAGES ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Our Packages</span>
+      <h2>Handcrafted Himalayan Experiences</h2>
+      <p>Each package is meticulously designed for spiritual seekers, adventure lovers, and nature enthusiasts exploring the Kumaon Himalayas.</p>
+      <div class="divider">
+        <div class="line"></div>
+        <div class="dot"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <div class="packages-grid">
+      @for (pkg of featuredPackages; track pkg.id) {
+        <article class="pkg-card">
+          @if (pkg.badge) {
+            <span class="pkg-badge">{{ pkg.badge }}</span>
+          }
+          <div class="pkg-image">
+            <img [src]="'https://images.unsplash.com/photo-' + ['1506905925346-21bda4d32df4','1551632811-561732d1e306','1519681393784-d120267933ba'][+pkg.id - 1] + '?auto=format&fit=crop&w=600&q=80'"
+                 [alt]="pkg.shortTitle + ' - Tour and Travels King'"
+                 loading="lazy">
+            <div class="pkg-difficulty" [class]="pkg.difficulty.toLowerCase()">{{ pkg.difficulty }}</div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-meta">
+              <span><i class="fas fa-clock"></i> {{ pkg.duration }}</span>
+              <span><i class="fas fa-map-marker-alt"></i> {{ pkg.startLocation }}</span>
+            </div>
+            <h3>{{ pkg.shortTitle }}</h3>
+            <ul class="pkg-highlights">
+              @for (h of pkg.highlights.slice(0, 3); track h) {
+                <li><i class="fas fa-check"></i> {{ h }}</li>
+              }
+            </ul>
+            <div class="pkg-footer">
+              <div class="pkg-price">
+                <span class="from">From</span>
+                <span class="price">₹{{ formatPrice(pkg.price) }}</span>
+                <span class="per">/ person</span>
+              </div>
+              <a [routerLink]="'/packages/' + pkg.slug" class="btn btn-primary btn-sm">
+                View Details <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+
+    <div class="view-all-wrap">
+      <a routerLink="/packages" class="btn btn-outline-primary btn-lg">
+        <i class="fas fa-th-large"></i> View All Packages
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOUR HIGHLIGHTS ===== -->
+<section class="section section-alt highlights-section">
+  <div class="container">
+    <div class="highlights-inner">
+      <div class="highlights-image">
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80"
+             alt="Himalayan mountain landscape with Om Parvat"
+             loading="lazy">
+        <div class="img-badge">
+          <i class="fas fa-mountain"></i>
+          <div>
+            <span class="num">4,750m</span>
+            <span class="label">Max Altitude</span>
+          </div>
+        </div>
+      </div>
+      <div class="highlights-content">
+        <span class="section-tag">Sacred Destinations</span>
+        <h2>What Makes Our Himalayas Special</h2>
+        <p>The Kumaon Himalayas hide some of India's most sacred and least-visited shrines. Our routes take you to places few outsiders ever see.</p>
+
+        <div class="highlights-list">
+          @for (h of highlights; track h.title) {
+            <div class="highlight-item">
+              <div class="h-icon"><i [class]="h.icon"></i></div>
+              <div>
+                <h4>{{ h.title }}</h4>
+                <p>{{ h.desc }}</p>
+              </div>
+            </div>
+          }
+        </div>
+
+        <a routerLink="/about" class="btn btn-primary btn-lg">
+          <i class="fas fa-info-circle"></i> Learn About Us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="section testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Traveller Stories</span>
+      <h2>What Our Pilgrims Say</h2>
+      <p>Thousands of devotees and adventure seekers have trusted us with their Himalayan journey. Here's what they experienced.</p>
+      <div class="divider">
+        <div class="line"></div>
+        <div class="dot"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <div class="testimonials-wrapper">
+      <div class="testimonials-track">
+        @for (t of testimonials; track t.name; let i = $index) {
+          <div class="testimonial-card" [class.active]="activeTestimonial() === i">
+            <div class="t-quote"><i class="fas fa-quote-left"></i></div>
+            <p class="t-text">{{ t.text }}</p>
+            <div class="t-stars">
+              @for (s of [1,2,3,4,5]; track s) {
+                <i class="fas fa-star"></i>
+              }
+            </div>
+            <div class="t-author">
+              <div class="t-avatar">{{ t.name.charAt(0) }}</div>
+              <div>
+                <strong>{{ t.name }}</strong>
+                <span>{{ t.location }} &bull; {{ t.package }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="t-dots">
+        @for (t of testimonials; track t.name; let i = $index) {
+          <button class="t-dot" [class.active]="activeTestimonial() === i"
+                  (click)="setTestimonial(i)" [attr.aria-label]="'Testimonial ' + (i+1)"></button>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ SECTION ===== -->
+<section class="section section-alt faq-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Common Questions</span>
+      <h2>Frequently Asked Questions</h2>
+      <p>Everything you need to know before planning your Himalayan pilgrimage or trek.</p>
+      <div class="divider">
+        <div class="line"></div>
+        <div class="dot"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <div class="faq-grid">
+      @for (faq of faqs; track faq.q; let i = $index) {
+        <div class="faq-item" [class.open]="activeFaq() === i">
+          <button class="faq-question" (click)="toggleFaq(i)">
+            <span>{{ faq.q }}</span>
+            <i class="fas" [class.fa-plus]="activeFaq() !== i" [class.fa-minus]="activeFaq() === i"></i>
+          </button>
+          <div class="faq-answer">
+            <p>{{ faq.a }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="cta-banner">
+  <div class="container">
+    <div class="cta-icon"><i class="fas fa-om"></i></div>
+    <h2>Ready to Begin Your Himalayan Pilgrimage?</h2>
+    <p>Get a free consultation with our Himalayan travel experts. We'll help you choose the perfect package for your spiritual journey.</p>
+    <div class="cta-actions">
+      <a routerLink="/contact" class="btn btn-primary btn-lg">
+        <i class="fas fa-paper-plane"></i> Send Enquiry
+      </a>
+      <a href="tel:+919675259958" class="btn btn-outline btn-lg">
+        <i class="fas fa-phone"></i> Call +91 96752 59958
+      </a>
+    </div>
+  </div>
+</section>

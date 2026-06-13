@@ -1,0 +1,507 @@
+import { Injectable } from '@angular/core';
+
+export interface DayItinerary {
+  day: number;
+  title: string;
+  description: string;
+  altitude?: string;
+  distance?: string;
+}
+
+export interface TourPackage {
+  id: string;
+  slug: string;
+  title: string;
+  shortTitle: string;
+  duration: string;
+  days: number;
+  nights: number;
+  startLocation: string;
+  endLocation: string;
+  price: number;
+  originalPrice: number;
+  difficulty: 'Easy' | 'Moderate' | 'Challenging';
+  maxAltitude: string;
+  groupSize: string;
+  highlights: string[];
+  includes: string[];
+  excludes: string[];
+  itinerary: DayItinerary[];
+  overview: string;
+  badge?: string;
+  metaDescription: string;
+  keywords: string;
+}
+
+@Injectable({ providedIn: 'root' })
+export class PackagesService {
+  private packages: TourPackage[] = [
+    {
+      id: '1',
+      slug: 'adi-kailash-4-days',
+      title: 'Adi Kailash, Om Parvat & Panchachuli Base Camp Expedition',
+      shortTitle: 'Adi Kailash Expedition',
+      duration: '4 Days / 3 Nights',
+      days: 4,
+      nights: 3,
+      startLocation: 'Dharchula',
+      endLocation: 'Dharchula',
+      price: 12999,
+      originalPrice: 15999,
+      difficulty: 'Moderate',
+      maxAltitude: '4,750 m (Jolingkong)',
+      groupSize: '2–20 Persons',
+      badge: 'Popular',
+      metaDescription: 'Explore Adi Kailash and Om Parvat with this 4-day expedition. Witness the natural Shivling, Jolingkong Holy Lake, and panoramic Panchachuli views with Tour and Travels King.',
+      keywords: 'Adi Kailash 4 days, Om Parvat tour, Panchachuli base camp, Jolingkong lake, Uttarakhand pilgrimage',
+      highlights: [
+        'Darshan of Om Parvat – the natural snow Shivling',
+        'Jolingkong Holy Lake & Parvati Sarovar',
+        'Adi Kailash (Chota Kailash) Parikrama',
+        'Panoramic views of Panchachuli peaks',
+        'Nabhidhang border viewpoint trek',
+        'Sacred Narayan Ashram visit',
+        'Overnight stay in Gunji base village',
+        'Scenic drive through inner Himalayan valleys'
+      ],
+      includes: [
+        'All accommodation (camps/guesthouses)',
+        'All meals during the tour (breakfast, lunch, dinner)',
+        'Private vehicle transportation throughout',
+        'Inner Line Permit for restricted border areas',
+        'Experienced local guide and support staff',
+        'First Aid kit and emergency support',
+        'All tolls, parking, and entry fees',
+        'Porterage for common equipment'
+      ],
+      excludes: [
+        'Travel from/to Delhi or your home city',
+        'Personal travel insurance',
+        'Personal expenses and tips',
+        'Any meals not mentioned in the itinerary',
+        'Items of personal nature (clothing, trekking gear)',
+        'Any activity not included in the program',
+        'Cost due to unforeseen circumstances (roadblocks, weather)'
+      ],
+      overview: `Experience the divine at Adi Kailash and Om Parvat – twin Himalayan shrines that rival the sacred Mount Kailash in their spiritual significance. This 4-day expedition takes you deep into the Pithoragarh district of Uttarakhand, close to the India–Nepal–Tibet trifurcation. Witness Om Parvat's miraculous natural snow formation – a perfect Sanskrit "Om" symbol blessed by nature itself – and circumambulate the majestic Adi Kailash. The serene Jolingkong lake, the mythological Parvati Sarovar, and sweeping views of the five-peaked Panchachuli massif make this a journey of unparalleled spiritual and scenic beauty. Perfect for devotees and trekkers seeking a short but deeply fulfilling Himalayan experience.`,
+      itinerary: [
+        {
+          day: 1,
+          title: 'Delhi / Kathgodam → Dharchula (Overnight Drive)',
+          altitude: '915 m',
+          description: 'Board an overnight sleeper bus or cab from Delhi or Kathgodam railway station in the evening. This scenic route takes you through the Kumaon hills, arriving in Dharchula – the gateway town – by early morning. Check into your guesthouse, freshen up, and enjoy a hearty breakfast. Evening briefing session on the route, permits, and safety. Overnight at Dharchula.'
+        },
+        {
+          day: 2,
+          title: 'Dharchula → Sobla → Narayan Ashram → Gunji',
+          altitude: '3,200 m',
+          distance: '~90 km drive',
+          description: 'After an early breakfast, begin the breathtaking drive into the restricted inner Himalayan zone. Pass through Sobla, the ancient Narayan Ashram (optional visit), and Ghatiabagarh checkpost where inner line permits are verified. The road follows the Kali River gorge with stunning scenery. Arrive at Gunji village – the base for Adi Kailash – in the afternoon. Acclimatization walk around the village. Dinner and overnight at Gunji guesthouse.'
+        },
+        {
+          day: 3,
+          title: 'Gunji → Nabhidhang → Jolingkong (Om Parvat & Adi Kailash Darshan)',
+          altitude: '4,750 m',
+          distance: '~28 km round trip',
+          description: 'The most sacred and spectacular day of the expedition. Drive from Gunji to Nabhidhang border viewpoint, where the divine Om Parvat reveals itself – a natural snow formation shaped exactly like the sacred "Om" symbol. Take in the panoramic view of the Nepal and Tibet Himalayan ranges. Continue to Jolingkong (4,750 m) – a sacred alpine valley with the holy Jolingkong Lake, Adi Kailash peak, and the mythological Parvati Sarovar. Perform parikrama (circumambulation) of Adi Kailash. Return to Gunji by evening. Celebratory dinner and overnight at Gunji.'
+        },
+        {
+          day: 4,
+          title: 'Gunji → Dharchula → Departure',
+          altitude: '915 m',
+          description: 'After breakfast, drive back to Dharchula via the mountain road. The return journey offers new perspectives of the valley landscapes. Stop for lunch at Sobla or Dharchula. Afternoon tea and brief rest. Evening departure for Kathgodam / Delhi by road. Carry memories of the sacred Himalayas home with you. Tour concludes.'
+        }
+      ]
+    },
+    {
+      id: '2',
+      slug: 'adi-kailash-6-days',
+      title: 'Ultimate Adi Kailash, Om Parvat & Sacred Kumaon Pilgrimage',
+      shortTitle: 'Sacred Kumaon Pilgrimage',
+      duration: '6 Days / 5 Nights',
+      days: 6,
+      nights: 5,
+      startLocation: 'Kathgodam / Pithoragarh',
+      endLocation: 'Pithoragarh',
+      price: 18499,
+      originalPrice: 22999,
+      difficulty: 'Moderate',
+      maxAltitude: '4,750 m (Jolingkong)',
+      groupSize: '2–20 Persons',
+      badge: 'Best Value',
+      metaDescription: 'The ultimate 6-day Kumaon pilgrimage covering Adi Kailash, Om Parvat, Pithoragarh, and sacred temples of Uttarakhand with complete accommodation and meals.',
+      keywords: 'Adi Kailash 6 days, Kumaon pilgrimage, Om Parvat darshan, Pithoragarh tour, Uttarakhand temple tour',
+      highlights: [
+        'Om Parvat natural snow Shivling darshan',
+        'Adi Kailash full parikrama',
+        'Jolingkong Lake and Parvati Sarovar',
+        'Pithoragarh – the "Little Kashmir" of Kumaon',
+        'Kapileshwar Mahadev Temple visit',
+        'Patal Bhuvaneshwar cave temple (optional)',
+        'Scenic Kumaon hill station sightseeing',
+        'Acclimatization day at Gunji'
+      ],
+      includes: [
+        'All accommodation (hotels/guesthouses/camps)',
+        'All meals during the tour',
+        'Private vehicle transportation throughout',
+        'Inner Line Permit for restricted areas',
+        'Experienced guide and support team',
+        'First Aid kit and emergency support',
+        'All entry fees, tolls, and parking',
+        'Welcome and farewell transfers'
+      ],
+      excludes: [
+        'Travel to/from Kathgodam or Delhi',
+        'Personal travel insurance',
+        'Personal expenses and tips',
+        'Optional activity costs',
+        'Personal trekking gear and clothing',
+        'Camera/video entry charges',
+        'Costs due to weather or political delays'
+      ],
+      overview: `This 6-day pilgrimage package offers the most complete Kumaon spiritual experience. Begin with the charming hill town of Pithoragarh, explore ancient temples, and then venture deep into the Himalayan border regions for the divine darshan of Om Parvat and Adi Kailash. With acclimatization built into the schedule and additional time to explore the sacred sites, this package is ideal for families, senior pilgrims, and devotees who want to fully absorb the spiritual atmosphere without rushing.`,
+      itinerary: [
+        {
+          day: 1,
+          title: 'Kathgodam → Pithoragarh',
+          altitude: '1,814 m',
+          distance: '~150 km',
+          description: 'Pick up from Kathgodam railway station and scenic drive through the beautiful Kumaon hills to Pithoragarh – fondly called the "Little Kashmir" of Uttarakhand. Check into your hotel, enjoy a welcome dinner, and take an evening stroll along the famous Pithoragarh meadow with views of the snow-capped Himalayan peaks.'
+        },
+        {
+          day: 2,
+          title: 'Pithoragarh Sightseeing → Dharchula',
+          altitude: '915 m',
+          distance: '~90 km',
+          description: 'Morning visit to Pithoragarh Fort, Kapileshwar Mahadev Temple, and the sunrise viewpoint overlooking the Himalayan peaks including Panchachuli. After breakfast, drive to Dharchula. En route, optional stop at Patal Bhuvaneshwar – one of the most sacred cave shrines of Kumaon, dedicated to Lord Shiva. Arrive at Dharchula, inner line permit processing. Overnight stay.'
+        },
+        {
+          day: 3,
+          title: 'Dharchula → Sobla → Narayan Ashram → Gunji',
+          altitude: '3,200 m',
+          distance: '~90 km drive',
+          description: 'Early morning drive into the restricted Himalayan zone following the Kali River gorge. Pass through the ancient Narayan Ashram nestled at 2,400 m altitude. Verify permits at Ghatiabagarh. The valley narrows dramatically as you approach the Tibetan plateau landscape. Arrive at Gunji, the main base village. Afternoon acclimatization walk. Overnight at Gunji.'
+        },
+        {
+          day: 4,
+          title: 'Gunji → Nabhidhang → Jolingkong (Om Parvat & Adi Kailash)',
+          altitude: '4,750 m',
+          distance: '~28 km round trip',
+          description: 'The spiritual heart of the journey. Early drive to Nabhidhang border point for the spectacular Om Parvat darshan – the divine mountain bearing the natural snow Om symbol. Continue to sacred Jolingkong valley for Adi Kailash parikrama and a dip in the holy Parvati Sarovar. The entire landscape feels mystical – alpine meadows, prayer flags, and the eternal presence of the Himalayas. Return to Gunji with hearts full of devotion.'
+        },
+        {
+          day: 5,
+          title: 'Gunji → Dharchula → Pithoragarh',
+          altitude: '1,814 m',
+          description: 'Leisurely morning with time for final prayers at the local temple. Drive back to Pithoragarh via Dharchula, stopping for lunch at Sobla. Arrive in Pithoragarh by evening. Celebration dinner at a traditional Kumaoni restaurant. Overnight at hotel.'
+        },
+        {
+          day: 6,
+          title: 'Pithoragarh → Kathgodam / Departure',
+          altitude: '915 m (Kathgodam)',
+          description: 'Breakfast and final checkout. Drive to Kathgodam or connect to your onward journey. Your Tour and Travels King representative will assist with your departure. We bid you farewell with memories that will last a lifetime.'
+        }
+      ]
+    },
+    {
+      id: '3',
+      slug: 'adi-kailash-7-days',
+      title: 'Grand Adi Kailash, Om Parvat & Panchachuli Himalayan Pilgrimage',
+      shortTitle: 'Grand Himalayan Pilgrimage',
+      duration: '7 Days / 6 Nights',
+      days: 7,
+      nights: 6,
+      startLocation: 'Kathgodam',
+      endLocation: 'Kathgodam',
+      price: 22999,
+      originalPrice: 28499,
+      difficulty: 'Moderate',
+      maxAltitude: '4,750 m (Jolingkong)',
+      groupSize: '2–16 Persons',
+      badge: 'Most Popular',
+      metaDescription: 'The grand 7-day Himalayan pilgrimage covering Adi Kailash, Om Parvat, and the spectacular Panchachuli mountain range – a complete spiritual and adventure journey.',
+      keywords: 'Adi Kailash 7 days, Panchachuli trek, Om Parvat, grand pilgrimage Uttarakhand, Himalayan spiritual tour',
+      highlights: [
+        'Om Parvat – divine snow Shivling',
+        'Adi Kailash complete parikrama',
+        'Jolingkong and Parvati Sarovar darshan',
+        'Panchachuli Base Camp panoramic views',
+        'Darma Valley scenic drive',
+        'Ancient temples of Pithoragarh',
+        'Patal Bhuvaneshwar cave temple',
+        'Acclimatization days for comfortable trekking'
+      ],
+      includes: [
+        'All accommodation (hotels/guesthouses/tents)',
+        'All meals throughout the trip',
+        'Private vehicle transportation',
+        'Inner Line Permit and all entry fees',
+        'Professional trekking guide',
+        'Ponies/porters for base camps (if required)',
+        'First Aid and emergency evacuation support',
+        'Welcome kit with Tour and Travels King essentials'
+      ],
+      excludes: [
+        'Travel to/from Kathgodam',
+        'Travel insurance (strongly recommended)',
+        'Personal trekking equipment',
+        'Beverages and personal expenses',
+        'Helicopter evacuation charges',
+        'Costs due to natural calamities or border closures'
+      ],
+      overview: `The Grand Pilgrimage – seven days of spiritual awakening in the high Himalayas. This comprehensive package combines the best of Kumaon's sacred heritage with the adventure of Himalayan trekking. From the mystical Patal Bhuvaneshwar caves to the world-famous Om Parvat, from the sacred Adi Kailash to the stunning Panchachuli Base Camp, every day reveals a new dimension of the Himalayan experience. Ideal for those who want to invest time, immerse deeply, and return transformed.`,
+      itinerary: [
+        {
+          day: 1,
+          title: 'Kathgodam → Almora → Pithoragarh',
+          altitude: '1,814 m',
+          distance: '~200 km',
+          description: 'Pick up from Kathgodam and drive through the scenic Kumaon hills. Brief halt at Almora – a charming hill town with a famous bazaar and the Chitai Golu Devata temple. Lunch in Almora before continuing to Pithoragarh. Evening arrival and hotel check-in. Welcome dinner with Kumaoni cuisine.'
+        },
+        {
+          day: 2,
+          title: 'Pithoragarh → Patal Bhuvaneshwar → Dharchula',
+          altitude: '915 m',
+          distance: '~90 km',
+          description: 'Morning visit to Pithoragarh highlights including the fort and sunrise viewpoint. Drive towards Dharchula, stopping at the mystical Patal Bhuvaneshwar cave temple – a labyrinthine limestone cave believed to contain rock formations representing all Hindu deities. A truly awe-inspiring spiritual experience. Arrive Dharchula by evening. Overnight stay and permit processing.'
+        },
+        {
+          day: 3,
+          title: 'Dharchula → Sobla → Gunji',
+          altitude: '3,200 m',
+          description: 'Enter the restricted Himalayan zone after completing permit formalities. The drive follows the turquoise Kali River upstream, with Tibetan-influenced villages and rhododendron forests along the way. Pass through Sobla and visit the sacred Narayan Ashram. Arrive Gunji and settle in. Brief acclimatization walk along the valley.'
+        },
+        {
+          day: 4,
+          title: 'Gunji → Nabhidhang → Jolingkong',
+          altitude: '4,750 m',
+          description: 'Pinnacle of the pilgrimage. Drive to Nabhidhang for the majestic Om Parvat darshan – the mountain sacred to Lord Shiva. Continue to Jolingkong for Adi Kailash parikrama and a dip in the holy Parvati Sarovar. Linger as long as you wish in this sacred valley before returning to Gunji. Evening puja at the local Shiva temple. Overnight Gunji.'
+        },
+        {
+          day: 5,
+          title: 'Gunji → Darma Valley / Panchachuli Viewpoint',
+          altitude: '4,200 m',
+          distance: '~15 km trek',
+          description: 'Today we divert towards the spectacular Darma Valley and trek to a high viewpoint for panoramic views of the Panchachuli massif – the five sacred peaks (Draupadi\'s Kitchen in mythological lore). The meadows here are carpeted with Himalayan wildflowers in season. This is the trekking highlight of the itinerary. Return to Gunji for the last night in the mountains.'
+        },
+        {
+          day: 6,
+          title: 'Gunji → Dharchula → Pithoragarh',
+          altitude: '1,814 m',
+          description: 'Unhurried morning in the mountains before driving back to Pithoragarh. Scenic stopovers along the return route. Arrive Pithoragarh by late afternoon. Final night\'s dinner with cultural evening including Kumaoni folk music if available. Hotel stay.'
+        },
+        {
+          day: 7,
+          title: 'Pithoragarh → Kathgodam → Departure',
+          altitude: '915 m',
+          description: 'Early breakfast and departure towards Kathgodam for your onward train or bus. Your tour manager will ensure a smooth transfer. The tour concludes at Kathgodam station. We hope the divine Himalayas have left an indelible mark on your soul.'
+        }
+      ]
+    },
+    {
+      id: '4',
+      slug: 'adi-kailash-9-days',
+      title: 'Adi Kailash, Om Parvat & Chaukori Grand Himalayan Tour',
+      shortTitle: 'Chaukori Grand Himalayan Tour',
+      duration: '9 Days / 8 Nights',
+      days: 9,
+      nights: 8,
+      startLocation: 'Delhi / Kathgodam',
+      endLocation: 'Kathgodam / Delhi',
+      price: 28999,
+      originalPrice: 35999,
+      difficulty: 'Moderate',
+      maxAltitude: '4,750 m (Jolingkong)',
+      groupSize: '2–16 Persons',
+      badge: 'Premium',
+      metaDescription: '9-day grand Himalayan tour covering Adi Kailash, Om Parvat, Pithoragarh, Chaukori, and the best of Kumaon – the most comprehensive Uttarakhand pilgrimage.',
+      keywords: 'Adi Kailash 9 days, Chaukori Panchachuli view, Kumaon grand tour, Uttarakhand 9 day package, Om Parvat full tour',
+      highlights: [
+        'Om Parvat divine darshan',
+        'Complete Adi Kailash parikrama',
+        'Chaukori – best sunrise Panchachuli viewpoint',
+        'Patal Bhuvaneshwar sacred cave temple',
+        'Almora and Chitai Golu Devata',
+        'Binsar Wildlife Sanctuary',
+        'Jageshwar Dham – ancient Shiva temples',
+        'Multiple acclimatization days'
+      ],
+      includes: [
+        'All accommodation – premium hotels, guesthouses, and campsites',
+        'All meals throughout (breakfast, lunch, dinner)',
+        'Private AC vehicle for all transfers',
+        'Inner Line and forest permits',
+        'Expert guide and experienced driver',
+        'All entry fees and toll taxes',
+        'Porterage at trekking sections',
+        'First Aid, oxygen cylinder, emergency support',
+        'Tour and Travels King welcome kit'
+      ],
+      excludes: [
+        'Travel to Delhi or Kathgodam',
+        'International and domestic flights',
+        'Personal travel/medical insurance',
+        'Tips and personal expenses',
+        'Personal trekking gear (boots, poles, jacket)',
+        'Photography/video charges at monuments',
+        'Any activity not listed in the program',
+        'Costs due to unforeseen events'
+      ],
+      overview: `The most comprehensive Kumaon-Himalayan grand tour available. Over 9 immersive days, you will traverse the length and breadth of Uttarakhand's Kumaon division – from the cultural charm of Almora and the wildlife of Binsar to the ancient Jageshwar temples, the mystical Patal Bhuvaneshwar caves, the divine Om Parvat, and the spectacular sunrise panorama from Chaukori. This is the ultimate journey for those who want to experience everything – pilgrimage, nature, adventure, and culture – in one beautifully curated trip.`,
+      itinerary: [
+        {
+          day: 1,
+          title: 'Delhi / Kathgodam → Almora',
+          altitude: '1,638 m',
+          description: 'Overnight drive from Delhi or pick up from Kathgodam station. Arrive Almora by morning. Check into your hotel and freshen up. Visit the famous Chitai Golu Devata temple and Bright End Corner viewpoint. Evening stroll in the old market. Overnight Almora.'
+        },
+        {
+          day: 2,
+          title: 'Almora → Binsar → Jageshwar',
+          altitude: '2,412 m (Binsar)',
+          description: 'Morning drive through the majestic Binsar Wildlife Sanctuary – home to leopards, deer, and hundreds of bird species. Visit the zero point viewpoint with 300 km panoramic Himalayan views. Continue to ancient Jageshwar Dham – a cluster of 124 stone temples dating back to the 7th–12th centuries, dedicated to Lord Shiva. Spiritual evening among the towering deodar cedar forest. Overnight near Jageshwar.'
+        },
+        {
+          day: 3,
+          title: 'Jageshwar → Pithoragarh',
+          altitude: '1,814 m',
+          description: 'Morning prayers at Jageshwar temples. Drive to Pithoragarh – the gateway to Adi Kailash. Visit Pithoragarh Fort and Kapileshwar Mahadev Temple. Evening at leisure. Overnight hotel.'
+        },
+        {
+          day: 4,
+          title: 'Pithoragarh → Patal Bhuvaneshwar → Dharchula',
+          altitude: '915 m',
+          description: 'Drive towards Dharchula, stopping at the legendary Patal Bhuvaneshwar cave temple – a subterranean Shiva shrine of extraordinary geological and mythological significance. Arrive Dharchula and complete inner line permit formalities. Overnight stay.'
+        },
+        {
+          day: 5,
+          title: 'Dharchula → Narayan Ashram → Gunji',
+          altitude: '3,200 m',
+          description: 'Enter the restricted zone and ascend through spectacular Himalayan terrain. Visit the tranquil Narayan Ashram set amidst cedar forests. Arrive at Gunji village and acclimatize. Evening prayers at the local temple. Overnight Gunji.'
+        },
+        {
+          day: 6,
+          title: 'Gunji → Nabhidhang → Jolingkong (Om Parvat & Adi Kailash)',
+          altitude: '4,750 m',
+          description: 'The spiritual highlight of the entire trip. Drive to Nabhidhang border for the divine Om Parvat darshan and then to Jolingkong for Adi Kailash parikrama and the holy Parvati Sarovar. An unforgettable day of devotion and Himalayan grandeur. Return to Gunji.'
+        },
+        {
+          day: 7,
+          title: 'Gunji → Dharchula → Chaukori',
+          altitude: '2,010 m',
+          description: 'Drive back through the valleys, bidding farewell to the border Himalayas. Continue past Pithoragarh to Chaukori – famous as the best vantage point in Kumaon for sunrise views of the Panchachuli, Nanda Devi, and Trishul peaks. Evening arrival. Overnight at the Chaukori tea garden resort.'
+        },
+        {
+          day: 8,
+          title: 'Chaukori Sunrise & Sightseeing → Almora',
+          altitude: '1,638 m',
+          description: 'Wake before dawn for the breathtaking sunrise over the Panchachuli peaks – arguably the finest mountain panorama in Kumaon. After breakfast, explore the Chaukori tea garden and local village. Drive back to Almora via Berinag. Last dinner of the tour with your group. Overnight Almora.'
+        },
+        {
+          day: 9,
+          title: 'Almora → Kathgodam → Departure',
+          altitude: '915 m',
+          description: 'Breakfast and final departure. Drive to Kathgodam railway station for your train to Delhi or onward connection. Tour concludes with fond farewells and the spiritual energy of the Himalayas as your parting gift.'
+        }
+      ]
+    },
+    {
+      id: '5',
+      slug: 'darma-valley-panchachuli',
+      title: 'Darma Valley & Panchachuli Base Camp Adventure Tour',
+      shortTitle: 'Darma Valley Adventure',
+      duration: '5 Days / 4 Nights',
+      days: 5,
+      nights: 4,
+      startLocation: 'Dharchula',
+      endLocation: 'Dharchula',
+      price: 15999,
+      originalPrice: 19999,
+      difficulty: 'Challenging',
+      maxAltitude: '4,400 m (Panchachuli Base Camp)',
+      groupSize: '4–14 Persons',
+      badge: 'Adventure',
+      metaDescription: 'Trek the remote Darma Valley and reach the Panchachuli Base Camp for up-close views of the five sacred peaks in the Kumaon Himalayas with Tour and Travels King.',
+      keywords: 'Darma Valley trek, Panchachuli Base Camp, Kumaon adventure trek, remote Himalayan trek, Uttarakhand trekking',
+      highlights: [
+        'Panchachuli Base Camp at 4,400 m',
+        'Remote and pristine Darma Valley',
+        'Traditional Bhotiya tribal villages',
+        'Alpine meadows with Himalayan wildflowers',
+        'Close views of all five Panchachuli peaks',
+        'Sela, Baling, and Sipu villages',
+        'Dense Himalayan forests and wildlife',
+        'River crossing and glacier views'
+      ],
+      includes: [
+        'All accommodation (guesthouses and tents)',
+        'All meals throughout',
+        'Transportation from/to Dharchula',
+        'Inner Line Permit for Darma Valley',
+        'Certified mountain guide',
+        'Camping equipment and tents',
+        'Porters for group gear',
+        'First Aid kit and emergency equipment'
+      ],
+      excludes: [
+        'Travel to/from Dharchula',
+        'Personal trekking gear (mandatory)',
+        'Sleeping bag (can be rented)',
+        'Travel and medical insurance',
+        'Personal medicine and supplements',
+        'Helicopter rescue (if needed)',
+        'Any expenses due to early exit'
+      ],
+      overview: `For the true Himalayan adventurer, the Darma Valley is a revelation. One of Uttarakhand's most remote and least-visited valleys, Darma shelters traditional Bhotiya communities, pristine alpine meadows, and unobstructed views of the Panchachuli massif – the legendary five peaks said to be the "five hearths" where the Pandavas cooked their last meal before ascending to heaven. This 5-day trek challenges and rewards in equal measure, taking you to the Panchachuli Base Camp at 4,400 m for the most intimate encounter with these sacred peaks imaginable.`,
+      itinerary: [
+        {
+          day: 1,
+          title: 'Dharchula → Sobla → Thal (Darma Valley Entry)',
+          altitude: '2,400 m',
+          distance: '~45 km drive + 4 km trek',
+          description: 'Drive from Dharchula along the Dhauliganga River into the Darma Valley. Obtain permits at Thal/Sobla checkpost. Begin the trek into the valley as the road ends. Walk through oak and rhododendron forests to the first Bhotiya village. Overnight in village guesthouse. Evening interaction with local families and introduction to the distinctive Bhotiya culture.'
+        },
+        {
+          day: 2,
+          title: 'Thal → Sela Village',
+          altitude: '3,100 m',
+          distance: '~12 km trek',
+          description: 'Trek through increasingly dramatic scenery as the valley narrows and the peaks close in around you. Pass through Baling village with its distinctive stone architecture. Cross small streams and continue to Sela – a beautiful village perched above the valley floor with spectacular mountain views. Overnight at community homestay. Traditional Bhotiya cuisine for dinner.'
+        },
+        {
+          day: 3,
+          title: 'Sela → Panchachuli Base Camp → Sela',
+          altitude: '4,400 m',
+          distance: '~16 km round trip',
+          description: 'Summit day. Early morning departure for the base camp climb through spectacular alpine terrain. The trail ascends through rhododendron scrub, open meadows, and glacial moraines. Reach Panchachuli Base Camp for breathtaking close-up views of all five Panchachuli peaks (6,334–6,904 m). The experience is overwhelming – sheer ice walls, hanging glaciers, and the sacred mountain silence. Return to Sela by late afternoon. Hot dinner and bonfire if conditions permit.'
+        },
+        {
+          day: 4,
+          title: 'Sela → Sipu Village → Thal',
+          altitude: '2,400 m',
+          distance: '~15 km trek',
+          description: 'Leisurely descent, exploring the lower Darma Valley villages of Sipu and Dugtu on the return. Opportunity to purchase traditional woolen crafts and herbal products from local artisans. Return to Thal by late afternoon. Overnight guesthouse. Farewell dinner with the group.'
+        },
+        {
+          day: 5,
+          title: 'Thal → Sobla → Dharchula → Departure',
+          altitude: '915 m',
+          description: 'Early morning drive back to Dharchula along the river gorge. Arrive by mid-morning. Hot showers and a proper meal at a local restaurant. Rest before your onward journey. Transfer to Pithoragarh or Kathgodam as required. The Darma Valley will stay with you long after the journey ends.'
+        }
+      ]
+    }
+  ];
+
+  getAll(): TourPackage[] {
+    return this.packages;
+  }
+
+  getBySlug(slug: string): TourPackage | undefined {
+    return this.packages.find(p => p.slug === slug);
+  }
+
+  getFeatured(): TourPackage[] {
+    return this.packages.slice(0, 3);
+  }
+}

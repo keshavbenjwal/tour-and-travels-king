@@ -1,0 +1,218 @@
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1503614472-8c93d56e92ce?auto=format&fit=crop&w=1600&q=80')"></div>
+  <div class="page-hero-content container">
+    <nav class="breadcrumb">
+      <a routerLink="/">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Contact Us</span>
+    </nav>
+    <h1>Get In Touch</h1>
+    <p>We respond to all inquiries within 24 hours</p>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section contact-section">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- Contact Info -->
+      <aside class="contact-info">
+        <h2>Reach Us Directly</h2>
+        <p>Whether you have a question, want to customize a tour, or are ready to book – we're here for you.</p>
+
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="ic-icon">
+              <i class="fas fa-user"></i>
+            </div>
+            <div>
+              <span class="ic-label">Tour Manager</span>
+              <strong>Savita Kohali</strong>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="ic-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div>
+              <span class="ic-label">Phone / WhatsApp</span>
+              <a href="tel:+919675259958"><strong>+91 96752 59958</strong></a>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="ic-icon">
+              <i class="fab fa-whatsapp"></i>
+            </div>
+            <div>
+              <span class="ic-label">WhatsApp Chat</span>
+              <a href="https://wa.me/919675259958?text=Hello%20I%20need%20information%20about%20your%20tour%20packages" target="_blank" rel="noopener">
+                <strong>Chat with Us</strong>
+              </a>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="ic-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <span class="ic-label">Office Address</span>
+              <address>H.N. 26, Street 4,<br>Khateema, Uttarakhand, India</address>
+            </div>
+          </div>
+        </div>
+
+        <div class="operating-hours">
+          <h4><i class="fas fa-clock"></i> Operating Hours</h4>
+          <div class="oh-row"><span>Monday – Saturday</span><span>8:00 AM – 8:00 PM</span></div>
+          <div class="oh-row"><span>Sunday</span><span>9:00 AM – 5:00 PM</span></div>
+          <p class="oh-note">Emergency support available 24/7 for guests on tour</p>
+        </div>
+
+        <div class="contact-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </aside>
+
+      <!-- Contact Form -->
+      <div class="contact-form-wrap">
+
+        @if (formState() === 'success') {
+          <div class="form-success">
+            <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+            <h3>Inquiry Sent Successfully!</h3>
+            <p>Thank you for reaching out! Savita ji will review your inquiry and get back to you within 24 hours. For urgent queries, please call or WhatsApp directly.</p>
+            <div class="success-actions">
+              <button class="btn btn-outline-primary" (click)="resetForm()">
+                <i class="fas fa-plus"></i> New Inquiry
+              </button>
+              <a href="tel:+919675259958" class="btn btn-primary">
+                <i class="fas fa-phone"></i> Call Now
+              </a>
+            </div>
+          </div>
+        } @else {
+          <div class="form-card">
+            <h2>Send an Inquiry</h2>
+            <p>Fill in the details below and we'll plan the perfect Himalayan journey for you.</p>
+
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="fullName">Full Name <span class="required">*</span></label>
+                  <input id="fullName" type="text" formControlName="fullName"
+                         placeholder="Your full name"
+                         [class.ng-invalid]="isInvalid('fullName')"
+                         [class.ng-touched]="contactForm.get('fullName')?.touched">
+                  @if (isInvalid('fullName')) {
+                    <span class="error-msg"><i class="fas fa-exclamation-circle"></i>
+                      @if (f['fullName'].errors?.['required']) { Full name is required. }
+                      @else { Name must be at least 2 characters. }
+                    </span>
+                  }
+                </div>
+
+                <div class="form-group">
+                  <label for="mobile">Mobile Number <span class="required">*</span></label>
+                  <input id="mobile" type="tel" formControlName="mobile"
+                         placeholder="10-digit mobile number"
+                         [class.ng-invalid]="isInvalid('mobile')"
+                         [class.ng-touched]="contactForm.get('mobile')?.touched">
+                  @if (isInvalid('mobile')) {
+                    <span class="error-msg"><i class="fas fa-exclamation-circle"></i>
+                      @if (f['mobile'].errors?.['required']) { Mobile number is required. }
+                      @else { Please enter a valid 10-digit Indian mobile number. }
+                    </span>
+                  }
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input id="email" type="email" formControlName="email"
+                       placeholder="your@email.com"
+                       [class.ng-invalid]="isInvalid('email')"
+                       [class.ng-touched]="contactForm.get('email')?.touched">
+                @if (isInvalid('email')) {
+                  <span class="error-msg"><i class="fas fa-exclamation-circle"></i>
+                    @if (f['email'].errors?.['required']) { Email address is required. }
+                    @else { Please enter a valid email address. }
+                  </span>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="selectedPackage">Package of Interest <span class="required">*</span></label>
+                <select id="selectedPackage" formControlName="selectedPackage"
+                        [class.ng-invalid]="isInvalid('selectedPackage')"
+                        [class.ng-touched]="contactForm.get('selectedPackage')?.touched">
+                  <option value="" disabled>Select a package...</option>
+                  @for (pkg of packages; track pkg) {
+                    <option [value]="pkg">{{ pkg }}</option>
+                  }
+                </select>
+                @if (isInvalid('selectedPackage')) {
+                  <span class="error-msg"><i class="fas fa-exclamation-circle"></i> Please select a package.</span>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="message">Your Message <span class="required">*</span></label>
+                <textarea id="message" formControlName="message"
+                          placeholder="Tell us about your travel dates, group size, special requirements, or any questions you have..."
+                          [class.ng-invalid]="isInvalid('message')"
+                          [class.ng-touched]="contactForm.get('message')?.touched"
+                          rows="5"></textarea>
+                @if (isInvalid('message')) {
+                  <span class="error-msg"><i class="fas fa-exclamation-circle"></i>
+                    @if (f['message'].errors?.['required']) { Message is required. }
+                    @else { Message must be at least 20 characters. }
+                  </span>
+                }
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg submit-btn"
+                      [disabled]="formState() === 'submitting'">
+                @if (formState() === 'submitting') {
+                  <span class="spinner"></span> Sending...
+                } @else {
+                  <i class="fas fa-paper-plane"></i> Send Inquiry
+                }
+              </button>
+            </form>
+          </div>
+        }
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Map Section -->
+<section class="map-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Find Us</span>
+      <h2>Our Location</h2>
+      <p>H.N. 26, Street 4, Khateema, Uttarakhand, India</p>
+    </div>
+  </div>
+  <div class="map-embed">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13876.86437046478!2d79.97693!3d29.05834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a13b5f4a1a4c33%3A0x5d58b8bdf2a9ea3!2sKhateema%2C%20Uttarakhand!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+      width="100%"
+      height="400"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Tour and Travels King location map">
+    </iframe>
+  </div>
+</section>
