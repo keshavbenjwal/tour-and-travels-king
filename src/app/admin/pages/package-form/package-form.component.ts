@@ -174,8 +174,10 @@ export class PackageFormComponent implements OnInit {
         this.snackbar.open('Package added successfully!', 'Close', { duration: 3000 });
       }
       this.router.navigate(['/admin/dashboard']);
-    } catch {
-      this.snackbar.open('Save failed. Please try again.', 'Close', { duration: 4000 });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error('Save error:', err);
+      this.snackbar.open(`Save failed: ${msg}`, 'Close', { duration: 8000 });
     } finally {
       this.isSaving.set(false);
     }
