@@ -11,5 +11,7 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'packages/darma-valley-panchachuli', renderMode: RenderMode.Prerender },
   { path: 'gallery', renderMode: RenderMode.Prerender },
   { path: 'contact', renderMode: RenderMode.Prerender },
+  { path: 'admin', renderMode: RenderMode.Client },
+  { path: 'admin/**', renderMode: RenderMode.Client },
   { path: '**', renderMode: RenderMode.Server }
 ];

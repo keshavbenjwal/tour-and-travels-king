@@ -1,0 +1,140 @@
+<div class="dashboard">
+
+  <!-- Stats Row -->
+  <div class="stats-row">
+    <mat-card class="stat-card">
+      <mat-icon color="primary">inventory_2</mat-icon>
+      <div>
+        <div class="stat-value">{{ packages().length }}</div>
+        <div class="stat-label">Total Packages</div>
+      </div>
+    </mat-card>
+    <mat-card class="stat-card">
+      <mat-icon style="color: #4caf50">check_circle</mat-icon>
+      <div>
+        <div class="stat-value">{{ activeCount }}</div>
+        <div class="stat-label">Active</div>
+      </div>
+    </mat-card>
+    <mat-card class="stat-card">
+      <mat-icon style="color: #ff9800">pause_circle</mat-icon>
+      <div>
+        <div class="stat-value">{{ packages().length - activeCount }}</div>
+        <div class="stat-label">Inactive</div>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Header -->
+  <div class="section-header">
+    <h1>Tour Packages</h1>
+    <a mat-flat-button color="primary" routerLink="/admin/packages/new">
+      <mat-icon>add</mat-icon> Add Package
+    </a>
+  </div>
+
+  <!-- Loading -->
+  @if (isLoading()) {
+    <div class="center-spinner">
+      <mat-spinner diameter="48"></mat-spinner>
+      <p>Loading packages…</p>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!isLoading() && packages().length === 0) {
+    <mat-card class="empty-state">
+      <mat-icon>inventory_2</mat-icon>
+      <h3>No packages yet</h3>
+      <p>Add your first tour package to get started.</p>
+      <a mat-flat-button color="primary" routerLink="/admin/packages/new">
+        <mat-icon>add</mat-icon> Add Package
+      </a>
+    </mat-card>
+  }
+
+  <!-- Table -->
+  @if (!isLoading() && packages().length > 0) {
+    <mat-card class="table-card">
+      <div class="table-wrapper">
+        <table mat-table [dataSource]="packages()" class="packages-table">
+
+          <!-- Title -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Package Name</th>
+            <td mat-cell *matCellDef="let pkg">
+              <div class="pkg-name">
+                <strong>{{ pkg.title }}</strong>
+                @if (pkg.badge) {
+                  <span class="badge">{{ pkg.badge }}</span>
+                }
+              </div>
+              <div class="pkg-slug">{{ pkg.slug }}</div>
+            </td>
+          </ng-container>
+
+          <!-- Duration -->
+          <ng-container matColumnDef="duration">
+            <th mat-header-cell *matHeaderCellDef>Duration</th>
+            <td mat-cell *matCellDef="let pkg">{{ pkg.duration }}</td>
+          </ng-container>
+
+          <!-- Price -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Price</th>
+            <td mat-cell *matCellDef="let pkg">
+              <div class="price">₹{{ pkg.price | number }}</div>
+              @if (pkg.originalPrice > pkg.price) {
+                <div class="original-price">₹{{ pkg.originalPrice | number }}</div>
+              }
+            </td>
+          </ng-container>
+
+          <!-- Difficulty -->
+          <ng-container matColumnDef="difficulty">
+            <th mat-header-cell *matHeaderCellDef>Difficulty</th>
+            <td mat-cell *matCellDef="let pkg">
+              <mat-chip [class]="'diff-' + pkg.difficulty?.toLowerCase()">
+                {{ pkg.difficulty }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let pkg">
+              <button mat-stroked-button [color]="pkg.active ? 'primary' : ''"
+                      (click)="toggleActive(pkg)"
+                      [matTooltip]="pkg.active ? 'Click to deactivate' : 'Click to activate'"
+                      class="status-btn">
+                <mat-icon>{{ pkg.active ? 'check_circle' : 'pause_circle' }}</mat-icon>
+                {{ pkg.active ? 'Active' : 'Inactive' }}
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Actions -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let pkg">
+              <div class="actions">
+                <a mat-icon-button [routerLink]="['/admin/packages', pkg.id, 'edit']"
+                   matTooltip="Edit">
+                  <mat-icon>edit</mat-icon>
+                </a>
+                <button mat-icon-button color="warn" (click)="openDeleteDialog(pkg)"
+                        matTooltip="Delete">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-card>
+  }
+</div>

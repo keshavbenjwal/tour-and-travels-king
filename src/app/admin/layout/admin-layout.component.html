@@ -1,0 +1,29 @@
+<div class="admin-shell">
+  <mat-toolbar class="admin-toolbar" color="primary">
+    <div class="toolbar-brand">
+      <mat-icon class="brand-icon">terrain</mat-icon>
+      <span class="brand-name">Kumaon Yatra Tours</span>
+      <span class="brand-tag">Admin</span>
+    </div>
+
+    <div class="toolbar-nav">
+      <a mat-button routerLink="/admin/dashboard" routerLinkActive="nav-active">
+        <mat-icon>dashboard</mat-icon> Dashboard
+      </a>
+      <a mat-button routerLink="/admin/packages/new">
+        <mat-icon>add_circle</mat-icon> Add Package
+      </a>
+    </div>
+
+    <div class="toolbar-user">
+      <span class="user-email">{{ auth.userEmail }}</span>
+      <button mat-icon-button (click)="logout()" matTooltip="Sign Out">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <main class="admin-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

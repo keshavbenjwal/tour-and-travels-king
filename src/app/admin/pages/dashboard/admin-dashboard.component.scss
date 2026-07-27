@@ -1,0 +1,97 @@
+.dashboard { display: flex; flex-direction: column; gap: 24px; }
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px !important;
+
+  mat-icon { font-size: 36px; width: 36px; height: 36px; }
+
+  .stat-value { font-size: 1.75rem; font-weight: 700; line-height: 1; }
+  .stat-label { font-size: 0.825rem; color: #666; margin-top: 4px; }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h1 { margin: 0; font-size: 1.5rem; }
+}
+
+.center-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 48px;
+  color: #666;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 64px 24px !important;
+  text-align: center;
+
+  mat-icon { font-size: 56px; width: 56px; height: 56px; color: #ccc; }
+  h3 { margin: 0; color: #555; }
+  p { margin: 0; color: #888; }
+}
+
+.table-card { overflow: hidden; }
+
+.table-wrapper { overflow-x: auto; }
+
+.packages-table {
+  width: 100%;
+
+  .pkg-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .badge {
+      background: #ff6f00;
+      color: white;
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+  .pkg-slug { font-size: 0.75rem; color: #888; margin-top: 2px; }
+
+  .price { font-weight: 600; color: #1a237e; }
+  .original-price { font-size: 0.75rem; color: #999; text-decoration: line-through; }
+
+  mat-chip {
+    font-size: 0.75rem !important;
+    &.diff-easy { --mdc-chip-label-text-color: #2e7d32; background: #e8f5e9; }
+    &.diff-moderate { --mdc-chip-label-text-color: #e65100; background: #fff3e0; }
+    &.diff-challenging { --mdc-chip-label-text-color: #b71c1c; background: #ffebee; }
+  }
+
+  .status-btn {
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    mat-icon { font-size: 16px; width: 16px; height: 16px; }
+  }
+
+  .actions { display: flex; gap: 4px; }
+}

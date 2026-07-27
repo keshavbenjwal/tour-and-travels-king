@@ -52,6 +52,10 @@ export const routes: Routes = [
     title: 'Contact Us | Kumaon Yatra Tours'
   },
   {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.routes').then(m => m.adminRoutes)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

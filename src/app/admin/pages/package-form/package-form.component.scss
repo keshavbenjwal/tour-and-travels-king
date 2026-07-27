@@ -1,0 +1,76 @@
+.form-page { display: flex; flex-direction: column; gap: 24px; }
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  h1 { margin: 0; font-size: 1.5rem; }
+}
+
+.center-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 64px;
+  color: #666;
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 8px !important;
+}
+
+.full-width { width: 100%; }
+
+.row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
+}
+
+.row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+
+  @media (max-width: 700px) { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 480px) { grid-template-columns: 1fr; }
+}
+
+.toggle-row {
+  padding: 8px 0 4px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-bottom: 16px;
+
+  button, a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 44px;
+    padding: 0 20px;
+  }
+}
+
+.save-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  mat-spinner { display: inline-block; }
+}

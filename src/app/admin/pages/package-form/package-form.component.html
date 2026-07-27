@@ -1,0 +1,221 @@
+<div class="form-page">
+
+  <div class="form-header">
+    <a mat-icon-button routerLink="/admin/dashboard" matTooltip="Back to Dashboard">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <h1>{{ isEditMode() ? 'Edit Package' : 'Add New Package' }}</h1>
+  </div>
+
+  @if (isLoading()) {
+    <div class="center-spinner">
+      <mat-spinner diameter="48"></mat-spinner>
+      <p>Loading package…</p>
+    </div>
+  } @else {
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-grid">
+
+        <!-- ─── Basic Info ─── -->
+        <mat-card>
+          <mat-card-header><mat-card-title>Basic Information</mat-card-title></mat-card-header>
+          <mat-card-content>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Package Title</mat-label>
+              <input matInput formControlName="title" placeholder="e.g. Adi Kailash 6 Day Expedition">
+              @if (isInvalid('title')) { <mat-error>Required (min 5 chars)</mat-error> }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Short Title</mat-label>
+              <input matInput formControlName="shortTitle" placeholder="e.g. Adi Kailash 6 Days">
+              @if (isInvalid('shortTitle')) { <mat-error>Required</mat-error> }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>URL Slug</mat-label>
+              <input matInput formControlName="slug" placeholder="e.g. adi-kailash-6-days">
+              <mat-hint>Lowercase letters, numbers, and hyphens only</mat-hint>
+              @if (isInvalid('slug')) { <mat-error>Required — only a-z, 0-9, hyphens</mat-error> }
+            </mat-form-field>
+
+            <div class="row-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Days</mat-label>
+                <input matInput type="number" formControlName="days" min="1">
+                @if (isInvalid('days')) { <mat-error>Min 1</mat-error> }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Nights</mat-label>
+                <input matInput type="number" formControlName="nights" min="0">
+                @if (isInvalid('nights')) { <mat-error>Min 0</mat-error> }
+              </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Duration Label</mat-label>
+              <input matInput formControlName="duration" placeholder="e.g. 6 Days / 5 Nights">
+              @if (isInvalid('duration')) { <mat-error>Required</mat-error> }
+            </mat-form-field>
+
+            <div class="row-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Start Location</mat-label>
+                <input matInput formControlName="startLocation" placeholder="Kathgodam">
+                @if (isInvalid('startLocation')) { <mat-error>Required</mat-error> }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>End Location</mat-label>
+                <input matInput formControlName="endLocation" placeholder="Kathgodam">
+                @if (isInvalid('endLocation')) { <mat-error>Required</mat-error> }
+              </mat-form-field>
+            </div>
+
+            <div class="row-3">
+              <mat-form-field appearance="outline">
+                <mat-label>Difficulty</mat-label>
+                <mat-select formControlName="difficulty">
+                  @for (d of difficulties; track d) {
+                    <mat-option [value]="d">{{ d }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Max Altitude</mat-label>
+                <input matInput formControlName="maxAltitude" placeholder="5600m">
+                @if (isInvalid('maxAltitude')) { <mat-error>Required</mat-error> }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Group Size</mat-label>
+                <input matInput formControlName="groupSize" placeholder="2–15 pax">
+                @if (isInvalid('groupSize')) { <mat-error>Required</mat-error> }
+              </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Badge (optional)</mat-label>
+              <input matInput formControlName="badge" placeholder="e.g. Most Popular, New">
+            </mat-form-field>
+
+          </mat-card-content>
+        </mat-card>
+
+        <!-- ─── Pricing ─── -->
+        <mat-card>
+          <mat-card-header><mat-card-title>Pricing</mat-card-title></mat-card-header>
+          <mat-card-content>
+
+            <div class="row-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Selling Price (₹)</mat-label>
+                <input matInput type="number" formControlName="price" min="1">
+                <mat-icon matPrefix>currency_rupee</mat-icon>
+                @if (isInvalid('price')) { <mat-error>Required</mat-error> }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Original Price (₹)</mat-label>
+                <input matInput type="number" formControlName="originalPrice" min="1">
+                <mat-icon matPrefix>currency_rupee</mat-icon>
+                @if (isInvalid('originalPrice')) { <mat-error>Required</mat-error> }
+              </mat-form-field>
+            </div>
+
+          </mat-card-content>
+        </mat-card>
+
+        <!-- ─── Description ─── -->
+        <mat-card>
+          <mat-card-header><mat-card-title>Description</mat-card-title></mat-card-header>
+          <mat-card-content>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Overview</mat-label>
+              <textarea matInput formControlName="overview" rows="6"
+                        placeholder="Describe the tour in detail (min 50 characters)…"></textarea>
+              @if (isInvalid('overview')) { <mat-error>Required (min 50 chars)</mat-error> }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Highlights</mat-label>
+              <textarea matInput formControlName="highlights" rows="5"
+                        placeholder="One highlight per line&#10;Natural Shivling at Om Parvat&#10;Jolingkong Holy Lake"></textarea>
+              <mat-hint>Enter each item on a new line</mat-hint>
+              @if (isInvalid('highlights')) { <mat-error>Required</mat-error> }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Includes</mat-label>
+              <textarea matInput formControlName="includes" rows="5"
+                        placeholder="One item per line&#10;Accommodation&#10;All meals"></textarea>
+              <mat-hint>Enter each item on a new line</mat-hint>
+              @if (isInvalid('includes')) { <mat-error>Required</mat-error> }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Excludes</mat-label>
+              <textarea matInput formControlName="excludes" rows="4"
+                        placeholder="One item per line&#10;Airfare&#10;Personal expenses"></textarea>
+              <mat-hint>Enter each item on a new line</mat-hint>
+              @if (isInvalid('excludes')) { <mat-error>Required</mat-error> }
+            </mat-form-field>
+
+          </mat-card-content>
+        </mat-card>
+
+        <!-- ─── SEO + Settings ─── -->
+        <mat-card>
+          <mat-card-header><mat-card-title>SEO &amp; Settings</mat-card-title></mat-card-header>
+          <mat-card-content>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Meta Description</mat-label>
+              <textarea matInput formControlName="metaDescription" rows="3"
+                        placeholder="Max 160 characters — shown in Google search results"></textarea>
+              <mat-hint align="end">{{ form.get('metaDescription')?.value?.length ?? 0 }}/160</mat-hint>
+              @if (isInvalid('metaDescription')) { <mat-error>Required (max 160 chars)</mat-error> }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Keywords</mat-label>
+              <input matInput formControlName="keywords"
+                     placeholder="adi kailash tour, om parvat, kumaon pilgrimage">
+              <mat-hint>Comma-separated keywords</mat-hint>
+              @if (isInvalid('keywords')) { <mat-error>Required</mat-error> }
+            </mat-form-field>
+
+            <div class="toggle-row">
+              <mat-slide-toggle formControlName="active" color="primary">
+                Package Active (visible on website)
+              </mat-slide-toggle>
+            </div>
+
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+
+      <!-- ─── Actions ─── -->
+      <div class="form-actions">
+        <a mat-stroked-button routerLink="/admin/dashboard">Cancel</a>
+        @if (isSaving()) {
+          <button mat-flat-button color="primary" class="save-btn" disabled>
+            <mat-spinner diameter="20"></mat-spinner>
+            Saving…
+          </button>
+        } @else {
+          <button mat-flat-button color="primary" type="submit" class="save-btn">
+            <mat-icon>save</mat-icon>
+            {{ isEditMode() ? 'Update Package' : 'Add Package' }}
+          </button>
+        }
+      </div>
+
+    </form>
+  }
+</div>
