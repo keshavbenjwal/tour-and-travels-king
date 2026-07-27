@@ -62,8 +62,10 @@
               "allowedHosts": []
             },
             "ssr": {
-              "entry": "src/server.ts"
-            }
+              "entry": "src/server.ts",
+              "platform": "neutral"
+            },
+            "outputPath": "dist"
           },
           "configurations": {
             "production": {

@@ -1,0 +1,14 @@
+{
+  "routes": {
+    "/": {},
+    "/about": {},
+    "/contact": {},
+    "/gallery": {},
+    "/packages": {},
+    "/packages/adi-kailash-4-days": {},
+    "/packages/adi-kailash-6-days": {},
+    "/packages/adi-kailash-7-days": {},
+    "/packages/adi-kailash-9-days": {},
+    "/packages/darma-valley-panchachuli": {}
+  }
+}
