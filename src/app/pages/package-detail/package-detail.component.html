@@ -120,7 +120,7 @@
           <div class="tab-content">
             <h2>Day-wise Itinerary</h2>
             <div class="itinerary-list">
-              @for (day of package.itinerary; track day.day) {
+              @for (day of (package.itinerary ?? []); track day.day) {
                 <div class="day-item" [class.open]="openDay === day.day">
                   <button class="day-header" (click)="toggleDay(day.day)">
                     <div class="day-num">Day {{ day.day }}</div>

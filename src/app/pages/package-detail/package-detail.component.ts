@@ -66,7 +66,7 @@ export class PackageDetailComponent implements OnInit {
         availability: 'https://schema.org/InStock'
       },
       touristType: ['Pilgrims', 'Adventure seekers', 'Nature lovers'],
-      itinerary: pkg.itinerary.map(d => ({
+      itinerary: (pkg.itinerary ?? []).map(d => ({
         '@type': 'TouristAttraction',
         name: d.title,
         description: d.description

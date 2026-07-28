@@ -26,7 +26,7 @@ export interface TourPackage {
   highlights: string[];
   includes: string[];
   excludes: string[];
-  itinerary: DayItinerary[];
+  itinerary?: DayItinerary[];
   overview: string;
   badge?: string;
   metaDescription: string;
