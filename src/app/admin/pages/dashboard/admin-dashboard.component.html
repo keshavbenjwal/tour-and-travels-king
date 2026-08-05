@@ -33,6 +33,28 @@
     </a>
   </div>
 
+  <!-- One-time migration of the built-in (hardcoded) packages -->
+  @if (!isLoading() && notYetImported.length > 0) {
+    <mat-card class="import-banner">
+      <mat-icon color="primary">cloud_upload</mat-icon>
+      <div class="import-text">
+        <strong>{{ notYetImported.length }} built-in package(s) are not in the database yet.</strong>
+        <span>Import them to edit or delete them from this panel.</span>
+      </div>
+      @if (isImporting()) {
+        <button mat-flat-button color="primary" disabled>
+          <mat-spinner diameter="20"></mat-spinner>
+          Importing…
+        </button>
+      } @else {
+        <button mat-flat-button color="primary" (click)="importBuiltIn()">
+          <mat-icon>cloud_upload</mat-icon>
+          Import Built-in Packages
+        </button>
+      }
+    </mat-card>
+  }
+
   <!-- Loading -->
   @if (isLoading()) {
     <div class="center-spinner">

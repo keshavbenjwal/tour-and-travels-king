@@ -1,7 +1,6 @@
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, inject, OnInit, PLATFORM_ID, signal, computed } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { SeoService } from '../../core/services/seo.service';
 import { PackagesService, TourPackage } from '../../core/services/packages.service';
 import { PublicPackagesService } from '../../core/services/public-packages.service';
@@ -19,10 +18,18 @@ export class PackagesComponent implements OnInit {
   private publicPkgService = inject(PublicPackagesService);
   private platformId = inject(PLATFORM_ID);
 
-  packages: TourPackage[] = [];
-  isLoadingFirestore = false;
-  selectedDifficulty = 'All';
+  // Signals — this app runs zoneless, so async updates must go through signals
+  // for change detection to pick them up.
+  packages = signal<TourPackage[]>([]);
+  selectedDifficulty = signal('All');
+
   difficulties = ['All', 'Easy', 'Moderate', 'Challenging'];
+
+  filteredPackages = computed(() => {
+    const all = this.packages();
+    const filter = this.selectedDifficulty();
+    return filter === 'All' ? all : all.filter(p => p.difficulty === filter);
+  });
 
   private readonly images = [
     '1506905925346-21bda4d32df4',
@@ -35,28 +42,17 @@ export class PackagesComponent implements OnInit {
     '1501854140801-50d01698950b'
   ];
 
-  get filteredPackages(): TourPackage[] {
-    if (this.selectedDifficulty === 'All') return this.packages;
-    return this.packages.filter(p => p.difficulty === this.selectedDifficulty);
-  }
-
   ngOnInit(): void {
-    this.packages = this.pkgService.getAll();
+    // Hardcoded packages render immediately (and during prerender for SEO).
+    this.packages.set(this.pkgService.getAll());
 
     if (isPlatformBrowser(this.platformId)) {
-      this.isLoadingFirestore = true;
       this.publicPkgService.getActive().subscribe({
         next: (firestorePkgs) => {
-          if (firestorePkgs.length > 0) {
-            const hardcodedSlugs = new Set(this.packages.map(p => p.slug));
-            const newPkgs = firestorePkgs
-              .filter(fp => !hardcodedSlugs.has(fp.slug))
-              .map(fp => this.toTourPackage(fp));
-            this.packages = [...this.packages, ...newPkgs];
-          }
-          this.isLoadingFirestore = false;
+          if (firestorePkgs.length === 0) return;
+          this.packages.set(this.merge(this.pkgService.getAll(), firestorePkgs));
         },
-        error: () => { this.isLoadingFirestore = false; }
+        error: (err) => console.error('[Packages] Firestore error:', err)
       });
     }
 
@@ -65,6 +61,21 @@ export class PackagesComponent implements OnInit {
       description: 'Browse all Kumaon Yatra Tours Himalayan packages – 4-day to 9-day tours covering Adi Kailash, Om Parvat, Darma Valley, Panchachuli, and the best of Kumaon.',
       keywords: 'Adi Kailash packages, Om Parvat tour packages, Himalayan pilgrimage packages, Uttarakhand tour packages, Panchachuli trek',
     });
+  }
+
+  /**
+   * Shows the built-in packages plus everything added via the admin panel.
+   * A Firestore package with the same slug as a built-in one replaces it,
+   * so edits made in the admin panel take effect.
+   */
+  private merge(hardcoded: TourPackage[], firestore: AdminPackage[]): TourPackage[] {
+    const fromAdmin = new Map(firestore.map(fp => [fp.slug, this.toTourPackage(fp)]));
+    const merged = hardcoded.map(hc => fromAdmin.get(hc.slug) ?? hc);
+    const usedSlugs = new Set(hardcoded.map(hc => hc.slug));
+    const newOnes = firestore
+      .filter(fp => !usedSlugs.has(fp.slug))
+      .map(fp => this.toTourPackage(fp));
+    return [...merged, ...newOnes];
   }
 
   private toTourPackage(fp: AdminPackage): TourPackage {
@@ -90,7 +101,7 @@ export class PackagesComponent implements OnInit {
       excludes: fp.excludes ?? [],
       metaDescription: fp.metaDescription,
       keywords: fp.keywords,
-      itinerary: []
+      itinerary: fp.itinerary ?? []
     };
   }
 
@@ -104,6 +115,6 @@ export class PackagesComponent implements OnInit {
   }
 
   setFilter(difficulty: string): void {
-    this.selectedDifficulty = difficulty;
+    this.selectedDifficulty.set(difficulty);
   }
 }

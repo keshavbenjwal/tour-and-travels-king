@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { PackagesFirestoreService } from '../../services/packages-firestore.service';
 import { AdminPackage } from '../../models/admin-package.model';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { PackagesService, TourPackage } from '../../../core/services/packages.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -29,11 +30,13 @@ import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dial
 })
 export class AdminDashboardComponent implements OnInit {
   private pkgService = inject(PackagesFirestoreService);
+  private builtInPkgService = inject(PackagesService);
   private dialog = inject(MatDialog);
   private snackbar = inject(MatSnackBar);
 
   packages = signal<AdminPackage[]>([]);
   isLoading = signal(true);
+  isImporting = signal(false);
   displayedColumns = ['title', 'duration', 'price', 'difficulty', 'status', 'actions'];
 
   private sub?: Subscription;
@@ -88,5 +91,72 @@ export class AdminDashboardComponent implements OnInit {
 
   get activeCount(): number {
     return this.packages().filter(p => p.active).length;
+  }
+
+  /** Built-in packages that are not yet in Firestore (matched by slug). */
+  get notYetImported(): TourPackage[] {
+    const existingSlugs = new Set(this.packages().map(p => p.slug));
+    return this.builtInPkgService.getAll().filter(p => !existingSlugs.has(p.slug));
+  }
+
+  /**
+   * One-time migration: copies the built-in packages into Firestore so they
+   * become editable here. Matched by slug, so re-running never duplicates.
+   */
+  importBuiltIn(): void {
+    const pending = this.notYetImported;
+    if (pending.length === 0) return;
+
+    const ref = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Import Built-in Packages',
+        message: `Copy ${pending.length} built-in package(s) into Firestore so you can edit and delete them? Existing packages are left untouched.`,
+        confirmText: 'Import'
+      }
+    });
+
+    ref.afterClosed().subscribe(async confirmed => {
+      if (!confirmed) return;
+      this.isImporting.set(true);
+      try {
+        for (const pkg of pending) {
+          await this.pkgService.add(this.toAdminPackage(pkg));
+        }
+        this.snackbar.open(`Imported ${pending.length} package(s).`, 'Close', { duration: 3000 });
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        console.error('Import failed:', err);
+        this.snackbar.open(`Import failed: ${msg}`, 'Close', { duration: 8000 });
+      } finally {
+        this.isImporting.set(false);
+      }
+    });
+  }
+
+  private toAdminPackage(p: TourPackage): Omit<AdminPackage, 'id' | 'createdAt' | 'updatedAt'> {
+    return {
+      title: p.title,
+      shortTitle: p.shortTitle,
+      slug: p.slug,
+      duration: p.duration,
+      days: p.days,
+      nights: p.nights,
+      startLocation: p.startLocation,
+      endLocation: p.endLocation,
+      price: p.price,
+      originalPrice: p.originalPrice,
+      difficulty: p.difficulty,
+      maxAltitude: p.maxAltitude,
+      groupSize: p.groupSize,
+      badge: p.badge ?? '',
+      overview: p.overview,
+      highlights: p.highlights ?? [],
+      includes: p.includes ?? [],
+      excludes: p.excludes ?? [],
+      metaDescription: p.metaDescription,
+      keywords: p.keywords,
+      active: true,
+      itinerary: p.itinerary ?? []
+    };
   }
 }

@@ -99,7 +99,15 @@
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Badge (optional)</mat-label>
-              <input matInput formControlName="badge" placeholder="e.g. Most Popular, New">
+              <input matInput formControlName="badge" [matAutocomplete]="badgeAuto"
+                     placeholder="Pick a badge or type your own">
+              <mat-icon matSuffix>arrow_drop_down</mat-icon>
+              <mat-autocomplete #badgeAuto="matAutocomplete">
+                @for (b of filteredBadges(); track b) {
+                  <mat-option [value]="b">{{ b }}</mat-option>
+                }
+              </mat-autocomplete>
+              <mat-hint>Choose from the list or enter any custom text</mat-hint>
             </mat-form-field>
 
           </mat-card-content>
@@ -134,36 +142,126 @@
           <mat-card-header><mat-card-title>Description</mat-card-title></mat-card-header>
           <mat-card-content>
 
+            <div class="suggestion-row">
+              <span class="suggestion-label">
+                <mat-icon>auto_awesome</mat-icon> Start from a template:
+              </span>
+              <mat-chip-set>
+                @for (s of overviewSuggestions; track s.label) {
+                  <mat-chip class="suggestion-chip" (click)="applySuggestion(s)"
+                            [matTooltip]="s.text" matTooltipClass="suggestion-tooltip">
+                    {{ s.label }}
+                  </mat-chip>
+                }
+              </mat-chip-set>
+            </div>
+
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Overview</mat-label>
               <textarea matInput formControlName="overview" rows="6"
                         placeholder="Describe the tour in detail (min 50 characters)…"></textarea>
+              <mat-hint>Pick a template above, then edit it — or write your own from scratch</mat-hint>
               @if (isInvalid('overview')) { <mat-error>Required (min 50 chars)</mat-error> }
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
+            <!-- Highlights -->
+            <mat-form-field appearance="outline" class="full-width chip-field">
               <mat-label>Highlights</mat-label>
-              <textarea matInput formControlName="highlights" rows="5"
-                        placeholder="One highlight per line&#10;Natural Shivling at Om Parvat&#10;Jolingkong Holy Lake"></textarea>
-              <mat-hint>Enter each item on a new line</mat-hint>
-              @if (isInvalid('highlights')) { <mat-error>Required</mat-error> }
+              <mat-chip-grid #highlightsGrid aria-label="Tour highlights">
+                @for (item of items('highlights'); track item) {
+                  <mat-chip-row (removed)="removeItem('highlights', item)">
+                    {{ item }}
+                    <button matChipRemove aria-label="Remove highlight">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                }
+              </mat-chip-grid>
+              <input #highlightsInput
+                     placeholder="Choose from the list or type your own, then press Enter"
+                     [matChipInputFor]="highlightsGrid"
+                     [matAutocomplete]="highlightsAuto"
+                     [matChipInputSeparatorKeyCodes]="separatorKeys"
+                     [matChipInputAddOnBlur]="true"
+                     (matChipInputTokenEnd)="addTyped('highlights', $event)"
+                     (input)="onQuery('highlights', highlightsInput.value)">
+              <mat-autocomplete #highlightsAuto="matAutocomplete"
+                                (optionSelected)="pickOption('highlights', $event, highlightsInput)">
+                @for (opt of availableOptions('highlights'); track opt) {
+                  <mat-option [value]="opt">{{ opt }}</mat-option>
+                }
+              </mat-autocomplete>
+              <mat-hint>{{ items('highlights').length }} selected — type anything and press Enter, or pick from the list</mat-hint>
             </mat-form-field>
+            @if (isInvalid('highlights')) {
+              <div class="chip-error"><mat-icon>error_outline</mat-icon> Add at least one highlight</div>
+            }
 
-            <mat-form-field appearance="outline" class="full-width">
+            <!-- Includes -->
+            <mat-form-field appearance="outline" class="full-width chip-field">
               <mat-label>Includes</mat-label>
-              <textarea matInput formControlName="includes" rows="5"
-                        placeholder="One item per line&#10;Accommodation&#10;All meals"></textarea>
-              <mat-hint>Enter each item on a new line</mat-hint>
-              @if (isInvalid('includes')) { <mat-error>Required</mat-error> }
+              <mat-chip-grid #includesGrid aria-label="What the tour includes">
+                @for (item of items('includes'); track item) {
+                  <mat-chip-row (removed)="removeItem('includes', item)">
+                    {{ item }}
+                    <button matChipRemove aria-label="Remove inclusion">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                }
+              </mat-chip-grid>
+              <input #includesInput
+                     placeholder="Choose from the list or type your own, then press Enter"
+                     [matChipInputFor]="includesGrid"
+                     [matAutocomplete]="includesAuto"
+                     [matChipInputSeparatorKeyCodes]="separatorKeys"
+                     [matChipInputAddOnBlur]="true"
+                     (matChipInputTokenEnd)="addTyped('includes', $event)"
+                     (input)="onQuery('includes', includesInput.value)">
+              <mat-autocomplete #includesAuto="matAutocomplete"
+                                (optionSelected)="pickOption('includes', $event, includesInput)">
+                @for (opt of availableOptions('includes'); track opt) {
+                  <mat-option [value]="opt">{{ opt }}</mat-option>
+                }
+              </mat-autocomplete>
+              <mat-hint>{{ items('includes').length }} selected — type anything and press Enter, or pick from the list</mat-hint>
             </mat-form-field>
+            @if (isInvalid('includes')) {
+              <div class="chip-error"><mat-icon>error_outline</mat-icon> Add at least one inclusion</div>
+            }
 
-            <mat-form-field appearance="outline" class="full-width">
+            <!-- Excludes -->
+            <mat-form-field appearance="outline" class="full-width chip-field">
               <mat-label>Excludes</mat-label>
-              <textarea matInput formControlName="excludes" rows="4"
-                        placeholder="One item per line&#10;Airfare&#10;Personal expenses"></textarea>
-              <mat-hint>Enter each item on a new line</mat-hint>
-              @if (isInvalid('excludes')) { <mat-error>Required</mat-error> }
+              <mat-chip-grid #excludesGrid aria-label="What the tour excludes">
+                @for (item of items('excludes'); track item) {
+                  <mat-chip-row (removed)="removeItem('excludes', item)">
+                    {{ item }}
+                    <button matChipRemove aria-label="Remove exclusion">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                }
+              </mat-chip-grid>
+              <input #excludesInput
+                     placeholder="Choose from the list or type your own, then press Enter"
+                     [matChipInputFor]="excludesGrid"
+                     [matAutocomplete]="excludesAuto"
+                     [matChipInputSeparatorKeyCodes]="separatorKeys"
+                     [matChipInputAddOnBlur]="true"
+                     (matChipInputTokenEnd)="addTyped('excludes', $event)"
+                     (input)="onQuery('excludes', excludesInput.value)">
+              <mat-autocomplete #excludesAuto="matAutocomplete"
+                                (optionSelected)="pickOption('excludes', $event, excludesInput)">
+                @for (opt of availableOptions('excludes'); track opt) {
+                  <mat-option [value]="opt">{{ opt }}</mat-option>
+                }
+              </mat-autocomplete>
+              <mat-hint>{{ items('excludes').length }} selected — type anything and press Enter, or pick from the list</mat-hint>
             </mat-form-field>
+            @if (isInvalid('excludes')) {
+              <div class="chip-error"><mat-icon>error_outline</mat-icon> Add at least one exclusion</div>
+            }
 
           </mat-card-content>
         </mat-card>
@@ -173,6 +271,21 @@
           <mat-card-header><mat-card-title>SEO &amp; Settings</mat-card-title></mat-card-header>
           <mat-card-content>
 
+            <div class="suggestion-row">
+              <span class="suggestion-label">
+                <mat-icon>auto_awesome</mat-icon> Start from a template:
+              </span>
+              <mat-chip-set>
+                @for (s of metaSuggestions; track s.label) {
+                  <mat-chip class="suggestion-chip"
+                            (click)="applySuggestion(s, 'metaDescription')"
+                            [matTooltip]="s.text" matTooltipClass="suggestion-tooltip">
+                    {{ s.label }}
+                  </mat-chip>
+                }
+              </mat-chip-set>
+            </div>
+
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Meta Description</mat-label>
               <textarea matInput formControlName="metaDescription" rows="3"
@@ -181,13 +294,38 @@
               @if (isInvalid('metaDescription')) { <mat-error>Required (max 160 chars)</mat-error> }
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
+            <!-- Keywords -->
+            <mat-form-field appearance="outline" class="full-width chip-field">
               <mat-label>Keywords</mat-label>
-              <input matInput formControlName="keywords"
-                     placeholder="adi kailash tour, om parvat, kumaon pilgrimage">
-              <mat-hint>Comma-separated keywords</mat-hint>
-              @if (isInvalid('keywords')) { <mat-error>Required</mat-error> }
+              <mat-chip-grid #keywordsGrid aria-label="SEO keywords">
+                @for (item of items('keywords'); track item) {
+                  <mat-chip-row (removed)="removeItem('keywords', item)">
+                    {{ item }}
+                    <button matChipRemove aria-label="Remove keyword">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                }
+              </mat-chip-grid>
+              <input #keywordsInput
+                     placeholder="Choose from the list or type your own, then press Enter"
+                     [matChipInputFor]="keywordsGrid"
+                     [matAutocomplete]="keywordsAuto"
+                     [matChipInputSeparatorKeyCodes]="separatorKeys"
+                     [matChipInputAddOnBlur]="true"
+                     (matChipInputTokenEnd)="addTyped('keywords', $event)"
+                     (input)="onQuery('keywords', keywordsInput.value)">
+              <mat-autocomplete #keywordsAuto="matAutocomplete"
+                                (optionSelected)="pickOption('keywords', $event, keywordsInput)">
+                @for (opt of availableOptions('keywords'); track opt) {
+                  <mat-option [value]="opt">{{ opt }}</mat-option>
+                }
+              </mat-autocomplete>
+              <mat-hint>{{ items('keywords').length }} keyword(s) — type anything and press Enter, or pick from the list</mat-hint>
             </mat-form-field>
+            @if (isInvalid('keywords')) {
+              <div class="chip-error"><mat-icon>error_outline</mat-icon> Add at least one keyword</div>
+            }
 
             <div class="toggle-row">
               <mat-slide-toggle formControlName="active" color="primary">

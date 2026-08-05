@@ -28,6 +28,38 @@
   h1 { margin: 0; font-size: 1.5rem; }
 }
 
+.import-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px !important;
+  border-left: 4px solid #3f51b5;
+
+  > mat-icon { font-size: 32px; width: 32px; height: 32px; flex-shrink: 0; }
+
+  .import-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+
+    strong { font-size: 0.95rem; }
+    span { font-size: 0.825rem; color: #666; }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 .center-spinner {
   display: flex;
   flex-direction: column;
