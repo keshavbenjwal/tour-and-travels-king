@@ -38,7 +38,7 @@
             <span class="pkg-badge">{{ pkg.badge }}</span>
           }
           <div class="pkg-image">
-            <img [src]="getImage(i)"
+            <img [src]="getImage(i, pkg.slug)"
                  [alt]="pkg.title + ' package'"
                  loading="lazy">
             <div class="pkg-difficulty" [class]="pkg.difficulty.toLowerCase()">{{ pkg.difficulty }}</div>

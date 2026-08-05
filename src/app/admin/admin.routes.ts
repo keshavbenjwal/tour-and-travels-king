@@ -23,6 +23,10 @@ export const adminRoutes: Routes = [
       {
         path: 'packages/:id/edit',
         loadComponent: () => import('./pages/package-form/package-form.component').then(m => m.PackageFormComponent)
+      },
+      {
+        path: 'gallery',
+        loadComponent: () => import('./pages/gallery/admin-gallery.component').then(m => m.AdminGalleryComponent)
       }
     ]
   }

@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { SeoService } from '../../core/services/seo.service';
 import { PackagesService, TourPackage } from '../../core/services/packages.service';
 import { PublicPackagesService } from '../../core/services/public-packages.service';
+import { PublicGalleryService } from '../../core/services/public-gallery.service';
 import { AdminPackage } from '../../admin/models/admin-package.model';
 
 @Component({
@@ -16,7 +17,11 @@ export class PackagesComponent implements OnInit {
   private seo = inject(SeoService);
   private pkgService = inject(PackagesService);
   private publicPkgService = inject(PublicPackagesService);
+  private galleryService = inject(PublicGalleryService);
   private platformId = inject(PLATFORM_ID);
+
+  /** slug -> uploaded photo, for packages with an image linked in the admin. */
+  private packagePhotos = signal<Record<string, string>>({});
 
   // Signals — this app runs zoneless, so async updates must go through signals
   // for change detection to pick them up.
@@ -53,6 +58,20 @@ export class PackagesComponent implements OnInit {
           this.packages.set(this.merge(this.pkgService.getAll(), firestorePkgs));
         },
         error: (err) => console.error('[Packages] Firestore error:', err)
+      });
+
+      this.galleryService.getAll().subscribe({
+        next: images => {
+          const map: Record<string, string> = {};
+          // Newest first, so only keep the first image seen per package.
+          images.forEach(img => {
+            if (img.packageSlug && !map[img.packageSlug]) {
+              map[img.packageSlug] = img.dataUrl;
+            }
+          });
+          this.packagePhotos.set(map);
+        },
+        error: (err) => console.error('[Packages] Gallery error:', err)
       });
     }
 
@@ -105,7 +124,11 @@ export class PackagesComponent implements OnInit {
     };
   }
 
-  getImage(index: number): string {
+  /** An uploaded photo for this package if one exists, otherwise a stock shot. */
+  getImage(index: number, slug?: string): string {
+    const uploaded = slug ? this.packagePhotos()[slug] : undefined;
+    if (uploaded) return uploaded;
+
     const id = this.images[index % this.images.length];
     return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=600&q=80`;
   }

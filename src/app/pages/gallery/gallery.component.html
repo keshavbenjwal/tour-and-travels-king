@@ -28,7 +28,7 @@
 <section class="section gallery-section">
   <div class="container">
     <div class="gallery-grid">
-      @for (img of filteredImages; track img.id) {
+      @for (img of filteredImages(); track img.id) {
         <div class="gallery-item" (click)="openLightbox(img)">
           <img [src]="img.thumb" [alt]="img.alt" loading="lazy">
           <div class="gallery-overlay">
@@ -58,7 +58,7 @@
     <button class="lb-nav lb-next" (click)="$event.stopPropagation(); nextImage()" aria-label="Next">
       <i class="fas fa-chevron-right"></i>
     </button>
-    <div class="lb-counter">{{ lightboxIndex() + 1 }} / {{ filteredImages.length }}</div>
+    <div class="lb-counter">{{ lightboxIndex() + 1 }} / {{ filteredImages().length }}</div>
   </div>
 }
 

@@ -1,0 +1,175 @@
+<div class="gallery-page">
+
+  <div class="page-header">
+    <div>
+      <h1>Gallery</h1>
+      <p class="subtitle">
+        Upload photos for the gallery page. Link an image to a package and it becomes that package's photo.
+      </p>
+    </div>
+  </div>
+
+  <!-- ─── Upload ─── -->
+  <mat-card class="upload-card">
+    <mat-card-content>
+      <label class="dropzone" [class.busy]="isProcessing()">
+        <input type="file" accept="image/*" multiple hidden
+               (change)="onFilesSelected($event)" [disabled]="isProcessing()">
+        @if (isProcessing()) {
+          <mat-spinner diameter="36"></mat-spinner>
+          <span class="dz-title">Compressing images…</span>
+        } @else {
+          <mat-icon class="dz-icon">cloud_upload</mat-icon>
+          <span class="dz-title">Choose images to upload</span>
+          <span class="dz-hint">
+            JPG or PNG, several at once. Each is resized and compressed automatically.
+          </span>
+        }
+      </label>
+
+      <p class="naming-tip">
+        <mat-icon>lightbulb</mat-icon>
+        Name a file after a package slug — e.g. <code>adi-kailash-6-days.jpg</code> — and it links itself.
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- ─── Queue ─── -->
+  @if (pending().length) {
+    <mat-card class="queue-card">
+      <mat-card-header>
+        <mat-card-title>Ready to upload ({{ pending().length }})</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="queue-grid">
+          @for (p of pending(); track p.dataUrl; let i = $index) {
+            <div class="queue-item">
+              <div class="thumb">
+                <img [src]="p.dataUrl" [alt]="p.caption">
+                <button mat-mini-fab class="remove-btn" (click)="removePending(i)"
+                        matTooltip="Remove from queue" [disabled]="isSaving()">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+
+              <div class="queue-meta">
+                <span class="file-name" [matTooltip]="p.fileName">{{ p.fileName }}</span>
+                <span class="dims">{{ p.width }}×{{ p.height }} · {{ formatKb(p.bytes) }}</span>
+              </div>
+
+              <mat-form-field appearance="outline" class="w-full compact">
+                <mat-label>Caption</mat-label>
+                <input matInput [(ngModel)]="p.caption" [disabled]="isSaving()">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="w-full compact">
+                <mat-label>Category</mat-label>
+                <mat-select [(ngModel)]="p.category" [disabled]="isSaving()">
+                  @for (c of categories; track c) {
+                    <mat-option [value]="c">{{ c }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="w-full compact">
+                <mat-label>Use as package photo</mat-label>
+                <mat-select [(ngModel)]="p.packageSlug" [disabled]="isSaving()">
+                  <mat-option value="">Gallery only</mat-option>
+                  @for (opt of packageOptions(); track opt.slug) {
+                    <mat-option [value]="opt.slug">{{ opt.title }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+
+              @if (p.autoMatched) {
+                <div class="auto-note">
+                  <mat-icon>auto_awesome</mat-icon> Matched from filename
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions class="queue-actions">
+        @if (isSaving()) {
+          <button mat-flat-button color="primary" disabled>
+            <mat-spinner diameter="20"></mat-spinner> Uploading…
+          </button>
+        } @else {
+          <button mat-flat-button color="primary" (click)="saveAll()">
+            <mat-icon>cloud_upload</mat-icon>
+            Upload {{ pending().length }} image{{ pending().length === 1 ? '' : 's' }}
+          </button>
+        }
+      </mat-card-actions>
+    </mat-card>
+  }
+
+  <!-- ─── Library ─── -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Uploaded images ({{ images().length }})</mat-card-title>
+      @if (images().length) {
+        <mat-card-subtitle>{{ formatKb(totalBytes()) }} stored in Firestore</mat-card-subtitle>
+      }
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (isLoading()) {
+        <div class="center-state">
+          <mat-spinner diameter="44"></mat-spinner>
+          <p>Loading gallery…</p>
+        </div>
+      } @else if (loadError()) {
+        <div class="center-state error">
+          <mat-icon>error_outline</mat-icon>
+          <p>{{ loadError() }}</p>
+        </div>
+      } @else if (!images().length) {
+        <div class="center-state">
+          <mat-icon class="empty-icon">photo_library</mat-icon>
+          <p>No images yet. Upload your first one above.</p>
+        </div>
+      } @else {
+        <div class="library-grid">
+          @for (img of images(); track img.id) {
+            <div class="library-item">
+              <div class="thumb">
+                <img [src]="img.dataUrl" [alt]="img.caption" loading="lazy">
+                <button mat-mini-fab color="warn" class="remove-btn"
+                        (click)="confirmDelete(img)" matTooltip="Delete image">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                @if (img.packageSlug) {
+                  <span class="pkg-badge" [matTooltip]="'Package photo for ' + packageTitle(img.packageSlug)">
+                    <mat-icon>link</mat-icon> {{ packageTitle(img.packageSlug) }}
+                  </span>
+                }
+              </div>
+
+              <div class="library-meta">
+                <span class="caption">{{ img.caption }}</span>
+                <span class="dims">
+                  {{ img.category }} · {{ img.width }}×{{ img.height }} · {{ formatKb(img.bytes) }}
+                </span>
+              </div>
+
+              <mat-form-field appearance="outline" class="w-full compact">
+                <mat-label>Package photo</mat-label>
+                <mat-select [ngModel]="img.packageSlug"
+                            (ngModelChange)="changePackage(img, $event)">
+                  <mat-option value="">Gallery only</mat-option>
+                  @for (opt of packageOptions(); track opt.slug) {
+                    <mat-option [value]="opt.slug">{{ opt.title }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          }
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+
+</div>
