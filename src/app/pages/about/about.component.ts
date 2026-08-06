@@ -20,9 +20,9 @@ export class AboutComponent implements OnInit {
 
   team = [
     {
-      name: 'Savita Kohali',
+      name: 'Jagdish Singh',
       role: 'Founder & Lead Guide',
-      desc: 'A passionate Himalayan explorer with over a decade of experience guiding spiritual journeys in Uttarakhand. Savita\'s deep knowledge of local culture, terrain, and sacred traditions makes every tour truly special.',
+      desc: 'A passionate Himalayan explorer with over a decade of experience guiding spiritual journeys in Uttarakhand. Jagdish\'s deep knowledge of local culture, terrain, and sacred traditions makes every tour truly special.',
       icon: 'fas fa-user-circle'
     }
   ];
@@ -38,7 +38,7 @@ export class AboutComponent implements OnInit {
     this.seo.updateSeo({
       title: 'About Us – Kumaon Yatra Tours',
       description: 'Learn about Kumaon Yatra Tours – Uttarakhand\'s trusted Himalayan tour operator specializing in Adi Kailash, Om Parvat, and Kumaon pilgrimage packages.',
-      keywords: 'about Kumaon Yatra Tours, Himalayan tour operator, Savita Kohali, Uttarakhand guides',
+      keywords: 'about Kumaon Yatra Tours, Himalayan tour operator, Jagdish Singh, Uttarakhand guides',
     });
 
     this.seo.addJsonLd({
@@ -46,13 +46,13 @@ export class AboutComponent implements OnInit {
       '@type': 'TravelAgency',
       name: 'Kumaon Yatra Tours',
       description: 'Expert-guided Himalayan pilgrimage and adventure tours in Uttarakhand, India.',
-      founder: { '@type': 'Person', name: 'Savita Kohali' },
+      founder: { '@type': 'Person', name: 'Jagdish Singh' },
       foundingDate: '2014',
       url: 'https://www.tourandtravelsking.com/about',
       address: {
         '@type': 'PostalAddress',
-        streetAddress: 'H.N. 26, Street 4',
-        addressLocality: 'Khateema',
+        streetAddress: 'Bin, Near APS Road',
+        addressLocality: 'Pithoragarh',
         addressRegion: 'Uttarakhand',
         addressCountry: 'IN'
       }

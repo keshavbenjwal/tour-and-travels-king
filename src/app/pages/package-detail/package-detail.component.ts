@@ -57,7 +57,7 @@ export class PackageDetailComponent implements OnInit {
         '@type': 'TravelAgency',
         name: 'Kumaon Yatra Tours',
         url: 'https://www.tourandtravelsking.com',
-        telephone: '+919675259958'
+        telephone: '+918272855150'
       },
       offers: {
         '@type': 'Offer',

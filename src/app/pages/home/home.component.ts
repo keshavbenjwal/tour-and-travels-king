@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       name: 'Rajesh Sharma',
       location: 'Delhi',
-      text: 'The Om Parvat experience was beyond anything I could have imagined. Seeing the natural Om symbol on the mountain filled me with an emotion I cannot describe. Savita ji and the team were exceptional – professional, caring, and deeply knowledgeable.',
+      text: 'The Om Parvat experience was beyond anything I could have imagined. Seeing the natural Om symbol on the mountain filled me with an emotion I cannot describe. Jagdish ji and the team were exceptional – professional, caring, and deeply knowledgeable.',
       rating: 5,
       package: 'Adi Kailash 7 Days'
     },
@@ -107,11 +107,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       name: 'Kumaon Yatra Tours',
       description: 'Expert-guided Himalayan pilgrimage and adventure tours in Uttarakhand, India.',
       url: 'https://www.tourandtravelsking.com',
-      telephone: '+919675259958',
+      telephone: '+918272855150',
       address: {
         '@type': 'PostalAddress',
-        streetAddress: 'H.N. 26, Street 4',
-        addressLocality: 'Khateema',
+        streetAddress: 'Bin, Near APS Road',
+        addressLocality: 'Pithoragarh',
         addressRegion: 'Uttarakhand',
         addressCountry: 'IN'
       },

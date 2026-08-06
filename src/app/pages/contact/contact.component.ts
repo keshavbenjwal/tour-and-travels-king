@@ -41,7 +41,7 @@ export class ContactComponent implements OnInit {
     this.seo.updateSeo({
       title: 'Contact Us – Kumaon Yatra Tours',
       description: 'Get in touch with Kumaon Yatra Tours for Himalayan pilgrimage and adventure tour inquiries. Call, WhatsApp, or fill the form – we respond within 24 hours.',
-      keywords: 'contact Kumaon Yatra Tours, Himalayan tour inquiry, Savita Kohali contact, Uttarakhand tour booking',
+      keywords: 'contact Kumaon Yatra Tours, Himalayan tour inquiry, Jagdish Singh contact, Uttarakhand tour booking',
     });
 
     this.seo.addJsonLd({
@@ -90,7 +90,7 @@ export class ContactComponent implements OnInit {
       `*Package:* ${v.selectedPackage}`,
       `*Message:* ${v.message}`,
     ];
-    const url = `https://wa.me/919675259958?text=${encodeURIComponent(lines.join('\n'))}`;
+    const url = `https://wa.me/918272855150?text=${encodeURIComponent(lines.join('\n'))}`;
     if (isPlatformBrowser(this.platformId)) {
       window.open(url, '_blank', 'noopener,noreferrer');
     }
