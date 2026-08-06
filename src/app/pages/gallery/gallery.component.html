@@ -16,7 +16,7 @@
 <div class="gallery-filter-bar">
   <div class="container">
     <div class="gallery-filter-inner">
-      @for (cat of categories; track cat) {
+      @for (cat of categories(); track cat) {
         <button class="gf-btn" [class.active]="activeCategory() === cat"
                 (click)="setCategory(cat)">{{ cat }}</button>
       }

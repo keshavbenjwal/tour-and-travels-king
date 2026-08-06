@@ -37,7 +37,22 @@ export class GalleryComponent implements OnInit {
     return cat === 'All' ? all : all.filter(i => i.category === cat);
   });
 
-  categories = ['All', 'Mountains', 'Temples', 'Trekking', 'Valleys', 'Villages'];
+  /** Display order; a tab only appears once that category has photos. */
+  private readonly categoryOrder = [
+    'Adi Kailash',
+    'Om Parvat',
+    'Darma Valley',
+    'Mountains',
+    'Temples',
+    'Trekking',
+    'Valleys',
+    'Villages'
+  ];
+
+  categories = computed(() => {
+    const present = new Set(this.images().map(i => i.category));
+    return ['All', ...this.categoryOrder.filter(c => present.has(c))];
+  });
 
   private stockImages: (Omit<GalleryImage, 'id'> & { id: number })[] = [
     { id: 1, url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=85', thumb: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80', caption: 'Himalayan Mountain Sunrise', category: 'Mountains', alt: 'Beautiful sunrise over Himalayan mountain peaks' },

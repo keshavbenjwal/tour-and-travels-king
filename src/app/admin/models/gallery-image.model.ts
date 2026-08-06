@@ -20,6 +20,10 @@ export interface GalleryImage {
 }
 
 export const GALLERY_CATEGORIES = [
+  // Destinations first — these are what pilgrims actually search for.
+  'Adi Kailash',
+  'Om Parvat',
+  'Darma Valley',
   'Mountains',
   'Temples',
   'Trekking',
