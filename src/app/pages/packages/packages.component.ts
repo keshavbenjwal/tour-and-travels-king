@@ -55,7 +55,8 @@ export class PackagesComponent implements OnInit {
       photos: [
         'gallery/adi-kailash-1-thumb.jpg',
         'gallery/adi-kailash-2-thumb.jpg',
-        'gallery/adi-kailash-3-thumb.jpg'
+        'gallery/adi-kailash-3-thumb.jpg',
+        'gallery/adi-kailash-4-thumb.jpg'
       ]
     },
     {
