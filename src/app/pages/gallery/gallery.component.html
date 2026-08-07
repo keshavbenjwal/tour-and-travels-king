@@ -16,7 +16,7 @@
 <div class="gallery-filter-bar">
   <div class="container">
     <div class="gallery-filter-inner">
-      @for (cat of categories(); track cat) {
+      @for (cat of categories; track cat) {
         <button class="gf-btn" [class.active]="activeCategory() === cat"
                 (click)="setCategory(cat)">{{ cat }}</button>
       }
@@ -27,18 +27,28 @@
 <!-- Gallery Grid -->
 <section class="section gallery-section">
   <div class="container">
-    <div class="gallery-grid">
-      @for (img of filteredImages(); track img.id) {
-        <div class="gallery-item" (click)="openLightbox(img)">
-          <img [src]="img.thumb" [alt]="img.alt" loading="lazy">
-          <div class="gallery-overlay">
-            <i class="fas fa-expand-alt"></i>
-            <span>{{ img.caption }}</span>
+    @if (filteredImages().length) {
+      <div class="gallery-grid">
+        @for (img of filteredImages(); track img.id) {
+          <div class="gallery-item" (click)="openLightbox(img)">
+            <img [src]="img.thumb" [alt]="img.alt" loading="lazy">
+            <div class="gallery-overlay">
+              <i class="fas fa-expand-alt"></i>
+              <span>{{ img.caption }}</span>
+            </div>
+            <span class="gallery-cat-chip">{{ img.category }}</span>
           </div>
-          <span class="gallery-cat-chip">{{ img.category }}</span>
-        </div>
-      }
-    </div>
+        }
+      </div>
+    } @else {
+      <div class="gallery-empty">
+        <i class="fas fa-camera-retro"></i>
+        <p>Photos from {{ activeCategory() }} are coming soon.</p>
+        <button class="btn btn-outline-primary btn-sm" (click)="setCategory('All')">
+          View all photos
+        </button>
+      </div>
+    }
   </div>
 </section>
 
@@ -53,7 +63,12 @@
     </button>
     <div class="lb-content" (click)="$event.stopPropagation()">
       <img [src]="lightboxImage()!.url" [alt]="lightboxImage()!.alt">
-      <div class="lb-caption">{{ lightboxImage()!.caption }}</div>
+      <div class="lb-caption">
+        {{ lightboxImage()!.caption }}
+        @if (lightboxImage()!.credit) {
+          <span class="lb-credit">Photo: {{ lightboxImage()!.credit }}</span>
+        }
+      </div>
     </div>
     <button class="lb-nav lb-next" (click)="$event.stopPropagation(); nextImage()" aria-label="Next">
       <i class="fas fa-chevron-right"></i>

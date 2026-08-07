@@ -11,6 +11,8 @@ interface GalleryImage {
   caption: string;
   category: string;
   alt: string;
+  /** Photographer credit — required by the CC BY-SA licence on some photos. */
+  credit?: string;
 }
 
 @Component({
@@ -37,8 +39,9 @@ export class GalleryComponent implements OnInit {
     return cat === 'All' ? all : all.filter(i => i.category === cat);
   });
 
-  /** Display order; a tab only appears once that category has photos. */
-  private readonly categoryOrder = [
+  categories = [
+    'All',
+    // Destinations first — these are what pilgrims actually search for.
     'Adi Kailash',
     'Om Parvat',
     'Darma Valley',
@@ -49,12 +52,22 @@ export class GalleryComponent implements OnInit {
     'Villages'
   ];
 
-  categories = computed(() => {
-    const present = new Set(this.images().map(i => i.category));
-    return ['All', ...this.categoryOrder.filter(c => present.has(c))];
-  });
-
   private stockImages: (Omit<GalleryImage, 'id'> & { id: number })[] = [
+    // ─── Destination photos from Wikimedia Commons. These are genuine images of
+    // the actual sites, unlike the generic stock shots further down. CC BY-SA
+    // requires the photographer credit shown in the lightbox. ───
+    { id: 101, url: 'gallery/adi-kailash-1.jpg', thumb: 'gallery/adi-kailash-1-thumb.jpg', caption: 'Adi Kailash (Chota Kailash) Peak', category: 'Adi Kailash', alt: 'The pyramidal snow-covered summit of Adi Kailash in Pithoragarh, Uttarakhand', credit: 'Pradip4india · CC BY-SA 4.0' },
+    { id: 102, url: 'gallery/adi-kailash-2.jpg', thumb: 'gallery/adi-kailash-2-thumb.jpg', caption: 'Parvati Kund below Adi Kailash', category: 'Adi Kailash', alt: 'The sacred Parvati Kund lake with the snow-capped Adi Kailash peak behind it', credit: 'Jashapd1 · CC BY-SA 4.0' },
+    { id: 103, url: 'gallery/adi-kailash-3.jpg', thumb: 'gallery/adi-kailash-3-thumb.jpg', caption: 'Pilgrim Cairns at Parvati Kund', category: 'Adi Kailash', alt: 'Stone cairns and a trishul left by pilgrims beside Parvati Kund at Adi Kailash', credit: 'Kcsr.ntl · CC BY-SA 4.0' },
+
+    { id: 104, url: 'gallery/om-parvat-1.jpg', thumb: 'gallery/om-parvat-1-thumb.jpg', caption: 'Om Parvat Ridge', category: 'Om Parvat', alt: 'Snow-covered ridge of Om Parvat seen from the approach trail', credit: 'Border scholar · Public domain' },
+    { id: 105, url: 'gallery/om-parvat-2.jpg', thumb: 'gallery/om-parvat-2-thumb.jpg', caption: 'Om Parvat Under Cloud', category: 'Om Parvat', alt: 'The peak of Om Parvat partly wreathed in cloud above a green slope', credit: 'Pradip4india · CC BY-SA 4.0' },
+    { id: 106, url: 'gallery/om-parvat-3.jpg', thumb: 'gallery/om-parvat-3-thumb.jpg', caption: 'Om Parvat Snow Face', category: 'Om Parvat', alt: 'Close view of the snow-streaked north face of Om Parvat against a deep blue sky', credit: 'Geet Arts · CC BY-SA 4.0' },
+
+    { id: 107, url: 'gallery/darma-valley-1.jpg', thumb: 'gallery/darma-valley-1-thumb.jpg', caption: 'Panchachuli at Sunrise, Darma Valley', category: 'Darma Valley', alt: 'The five Panchachuli peaks catching golden sunrise light above Darma Valley', credit: 'Kuldeep vittan · CC BY-SA 4.0' },
+    { id: 108, url: 'gallery/darma-valley-2.jpg', thumb: 'gallery/darma-valley-2-thumb.jpg', caption: 'Darma Valley Trail in Rhododendron Season', category: 'Darma Valley', alt: 'Trekkers crossing a stream in Darma Valley among blooming rhododendrons and snow patches', credit: 'Kuldeep vittan · CC BY-SA 4.0' },
+    { id: 109, url: 'gallery/darma-valley-3.jpg', thumb: 'gallery/darma-valley-3-thumb.jpg', caption: 'The Panchachuli Massif', category: 'Darma Valley', alt: 'The Panchachuli range rising above layered blue ridges of the Kumaon Himalaya', credit: 'Rohit Gosain · CC BY-SA 4.0' },
+
     { id: 1, url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=85', thumb: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80', caption: 'Himalayan Mountain Sunrise', category: 'Mountains', alt: 'Beautiful sunrise over Himalayan mountain peaks' },
     { id: 2, url: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=85', thumb: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80', caption: 'Milky Way over the Himalayas', category: 'Mountains', alt: 'Starry night sky over Himalayan mountains' },
     { id: 3, url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85', thumb: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80', caption: 'Sacred Mountain Lake', category: 'Mountains', alt: 'Clear mountain lake reflecting snow-capped peaks' },

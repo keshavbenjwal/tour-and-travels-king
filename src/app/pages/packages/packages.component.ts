@@ -47,6 +47,64 @@ export class PackagesComponent implements OnInit {
     '1501854140801-50d01698950b'
   ];
 
+  /** Gallery photos of each destination, matched to packages by title. */
+  private readonly destinationPools: { key: string; match: RegExp; photos: string[] }[] = [
+    {
+      key: 'adi-kailash',
+      match: /adi[\s-]?kailash|chota[\s-]?kailash/i,
+      photos: [
+        'gallery/adi-kailash-1-thumb.jpg',
+        'gallery/adi-kailash-2-thumb.jpg',
+        'gallery/adi-kailash-3-thumb.jpg'
+      ]
+    },
+    {
+      key: 'om-parvat',
+      match: /om[\s-]?par[vw]at/i,
+      photos: [
+        'gallery/om-parvat-1-thumb.jpg',
+        'gallery/om-parvat-2-thumb.jpg',
+        'gallery/om-parvat-3-thumb.jpg'
+      ]
+    },
+    {
+      key: 'darma-valley',
+      match: /d[ha]?arma[\s-]?valley|panchachuli/i,
+      photos: [
+        'gallery/darma-valley-1-thumb.jpg',
+        'gallery/darma-valley-2-thumb.jpg',
+        'gallery/darma-valley-3-thumb.jpg'
+      ]
+    }
+  ];
+
+  /**
+   * slug -> gallery photo, assigned so no two packages share an image.
+   * A package is matched on every destination its title mentions, so once the
+   * Adi Kailash photos run out the next one falls back to Om Parvat, which
+   * those itineraries also cover.
+   */
+  private destinationImages = computed(() => {
+    const assigned: Record<string, string> = {};
+    const used = new Set<string>();
+
+    for (const pkg of this.packages()) {
+      const haystack = `${pkg.title} ${pkg.shortTitle} ${pkg.slug}`;
+
+      for (const pool of this.destinationPools) {
+        if (!pool.match.test(haystack)) continue;
+        const free = pool.photos.find(p => !used.has(p));
+        if (free) {
+          assigned[pkg.slug] = free;
+          used.add(free);
+          break;
+        }
+      }
+    }
+
+    return assigned;
+  });
+
   ngOnInit(): void {
     // Hardcoded packages render immediately (and during prerender for SEO).
     this.packages.set(this.pkgService.getAll());
@@ -124,10 +182,20 @@ export class PackagesComponent implements OnInit {
     };
   }
 
-  /** An uploaded photo for this package if one exists, otherwise a stock shot. */
+  /**
+   * Picks a package photo, most specific first:
+   *   1. an image linked to this package in the admin panel
+   *   2. a gallery photo of a destination named in the package title
+   *   3. generic Himalayan stock
+   */
   getImage(index: number, slug?: string): string {
-    const uploaded = slug ? this.packagePhotos()[slug] : undefined;
-    if (uploaded) return uploaded;
+    if (slug) {
+      const uploaded = this.packagePhotos()[slug];
+      if (uploaded) return uploaded;
+
+      const destination = this.destinationImages()[slug];
+      if (destination) return destination;
+    }
 
     const id = this.images[index % this.images.length];
     return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=600&q=80`;

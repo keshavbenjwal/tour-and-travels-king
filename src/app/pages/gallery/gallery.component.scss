@@ -34,6 +34,34 @@
 
 .gallery-section { padding-top: 3rem; }
 
+.lb-credit {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.gallery-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  color: var(--gray, #6b7280);
+
+  i {
+    font-size: 2.75rem;
+    color: #cbd5e1;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+}
+
 .gallery-grid {
   columns: 4 280px;
   gap: 1rem;
