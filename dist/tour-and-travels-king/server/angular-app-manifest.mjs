@@ -8,7 +8,8 @@ export default {
   {
     "renderMode": 2,
     "preload": [
-      "chunk-R6CPHJQ5.js",
+      "chunk-5KUOTI25.js",
+      "chunk-Q6QOMSM3.js",
       "chunk-FRVRYN3R.js",
       "chunk-55I2RGUS.js"
     ],
@@ -25,7 +26,8 @@ export default {
   {
     "renderMode": 2,
     "preload": [
-      "chunk-4BUQTOSG.js",
+      "chunk-BFG5OFAR.js",
+      "chunk-Q6QOMSM3.js",
       "chunk-FRVRYN3R.js",
       "chunk-BJZIJQTG.js",
       "chunk-ELQZ54ZE.js",
@@ -184,18 +186,18 @@ export default {
 ],
   entryPointToBrowserMapping: undefined,
   assets: {
-    'index.csr.html': {size: 66992, hash: '226e89f80eda50dec867f91083587b552ed62b803e7569828aa1e9de85f26c8a', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 12691, hash: '2e37795015140a91458e8530d7be7e0abbc39d5cddd0dcc443001468e503ad30', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
-    'packages/adi-kailash-6-days/index.html': {size: 119858, hash: 'f928390c3cb98309f3e5be3c1fc9b9281fe61b84e1a788ec51c17945cfca04eb', text: () => import('./assets-chunks/packages_adi-kailash-6-days_index_html.mjs').then(m => m.default)},
-    'about/index.html': {size: 107347, hash: 'e130410d481a1698ce08f0a1e07dfd90a3f95e9982470688a26a4dea1a9ffe6f', text: () => import('./assets-chunks/about_index_html.mjs').then(m => m.default)},
-    'index.html': {size: 134723, hash: 'e70f7318203d71219fcbbfbea48498a75f6ef7c9ef93814d4ad652e04591c743', text: () => import('./assets-chunks/index_html.mjs').then(m => m.default)},
-    'packages/darma-valley-panchachuli/index.html': {size: 119588, hash: '844f082bc5f0f406269437182cbf55f34c741f1a866ddf29b98f18b4c0d809ee', text: () => import('./assets-chunks/packages_darma-valley-panchachuli_index_html.mjs').then(m => m.default)},
-    'contact/index.html': {size: 108517, hash: 'd811931380d6200fd22c61e7f3d00dd9f03aad7accc7cecc461f5c4c2b0b0590', text: () => import('./assets-chunks/contact_index_html.mjs').then(m => m.default)},
-    'packages/adi-kailash-4-days/index.html': {size: 119725, hash: 'fd7ebe29a8fbc7ec569fd1954309febbe6f9f31dcb1dfd0868dd7f5683cf44ec', text: () => import('./assets-chunks/packages_adi-kailash-4-days_index_html.mjs').then(m => m.default)},
-    'packages/adi-kailash-9-days/index.html': {size: 120539, hash: '96f19168d7d3a36f8198f47e90c65db2a5bf2525025baae8d2f8dfce0a21a25c', text: () => import('./assets-chunks/packages_adi-kailash-9-days_index_html.mjs').then(m => m.default)},
-    'packages/index.html': {size: 115363, hash: '6508b6333986081a0de8fa07f167a66bf1b686dc5271e97e40ce98b07f59a9f0', text: () => import('./assets-chunks/packages_index_html.mjs').then(m => m.default)},
-    'gallery/index.html': {size: 112428, hash: '9557182c9e617e6628df119a0deef36073210d4917dbbfec523ccc6b2c39aea1', text: () => import('./assets-chunks/gallery_index_html.mjs').then(m => m.default)},
-    'packages/adi-kailash-7-days/index.html': {size: 120208, hash: '265f81c1b1ad0101693b4bc6bcc0a64f1ba21d87632b7b28f33d87c67d65e742', text: () => import('./assets-chunks/packages_adi-kailash-7-days_index_html.mjs').then(m => m.default)},
+    'index.csr.html': {size: 66992, hash: '8d94b61c33292af5fc19def220d94d8a015955b5229daddb74834434beeb3cde', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 12691, hash: '51e5f553dfc5c8228acc31a30ac1523bf25bc84eb27dbf36418fe7b5fd174b53', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'about/index.html': {size: 107347, hash: 'e52429df833a2415d81a2017f15fd02fd26172746df449c0da76f908fadc77f4', text: () => import('./assets-chunks/about_index_html.mjs').then(m => m.default)},
+    'packages/adi-kailash-6-days/index.html': {size: 119858, hash: 'f713211995ee60f1abf4e108f230ab534bebe3191db3815f526f1eefcd04c54d', text: () => import('./assets-chunks/packages_adi-kailash-6-days_index_html.mjs').then(m => m.default)},
+    'index.html': {size: 134559, hash: '32de6bb10aaccc635207b9dc71a3d8d56e642a93689d8b6f2dd3d3bca4d9c916', text: () => import('./assets-chunks/index_html.mjs').then(m => m.default)},
+    'packages/darma-valley-panchachuli/index.html': {size: 119595, hash: '5288ed505d5aef7f3a26f786ef947c2d6992df45d5e54e4fea2b687d7e617d9f', text: () => import('./assets-chunks/packages_darma-valley-panchachuli_index_html.mjs').then(m => m.default)},
+    'contact/index.html': {size: 108525, hash: '1482344aaaa1f58fbe93aa474ff33ca1d4f35bfda064185ed5d7e5ed7ca9d681', text: () => import('./assets-chunks/contact_index_html.mjs').then(m => m.default)},
+    'packages/adi-kailash-4-days/index.html': {size: 119725, hash: '5f484350465210025ade6f5320af22aadbd1f0196f74e1b52d4c91d27fae997b', text: () => import('./assets-chunks/packages_adi-kailash-4-days_index_html.mjs').then(m => m.default)},
+    'packages/adi-kailash-9-days/index.html': {size: 120546, hash: '3f0227bdaffcedac868c121d781dce8a163bfd03f1df54569425c2cf1c6dd6e4', text: () => import('./assets-chunks/packages_adi-kailash-9-days_index_html.mjs').then(m => m.default)},
+    'packages/index.html': {size: 115422, hash: '0024a5137898353d12585fcf4624da0a149fae84c3735513e62afc6a8251b5e3', text: () => import('./assets-chunks/packages_index_html.mjs').then(m => m.default)},
+    'packages/adi-kailash-7-days/index.html': {size: 120215, hash: 'be061c6f00e8edf8564320fe3c0c03b0370d700bbe757f507c9127980612f5d6', text: () => import('./assets-chunks/packages_adi-kailash-7-days_index_html.mjs').then(m => m.default)},
+    'gallery/index.html': {size: 112428, hash: 'ac206f0338b94fd72b4f8426a180d31ce069765f2d4bd1ead6eb2ba9c0507d02', text: () => import('./assets-chunks/gallery_index_html.mjs').then(m => m.default)},
     'styles-G4GB5532.css': {size: 111662, hash: 'aQDvafscNvw', text: () => import('./assets-chunks/styles-G4GB5532_css.mjs').then(m => m.default)}
   },
 };

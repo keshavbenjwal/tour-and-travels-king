@@ -5,6 +5,7 @@ import { SeoService } from '../../core/services/seo.service';
 import { PackagesService, TourPackage } from '../../core/services/packages.service';
 import { PublicPackagesService } from '../../core/services/public-packages.service';
 import { PublicGalleryService } from '../../core/services/public-gallery.service';
+import { PackageImageService } from '../../core/services/package-image.service';
 import { AdminPackage } from '../../admin/models/admin-package.model';
 
 @Component({
@@ -18,6 +19,7 @@ export class PackagesComponent implements OnInit {
   private pkgService = inject(PackagesService);
   private publicPkgService = inject(PublicPackagesService);
   private galleryService = inject(PublicGalleryService);
+  private imageService = inject(PackageImageService);
   private platformId = inject(PLATFORM_ID);
 
   /** slug -> uploaded photo, for packages with an image linked in the admin. */
@@ -36,75 +38,8 @@ export class PackagesComponent implements OnInit {
     return filter === 'All' ? all : all.filter(p => p.difficulty === filter);
   });
 
-  private readonly images = [
-    '1506905925346-21bda4d32df4',
-    '1551632811-561732d1e306',
-    '1519681393784-d120267933ba',
-    '1464822759023-fed622ff2c3b',
-    '1454496522488-7a8e488e8606',
-    '1548013146-72479768bada',
-    '1469854523086-cc02fe5d8800',
-    '1501854140801-50d01698950b'
-  ];
-
-  /** Gallery photos of each destination, matched to packages by title. */
-  private readonly destinationPools: { key: string; match: RegExp; photos: string[] }[] = [
-    {
-      key: 'adi-kailash',
-      match: /adi[\s-]?kailash|chota[\s-]?kailash/i,
-      photos: [
-        'gallery/adi-kailash-1-thumb.jpg',
-        'gallery/adi-kailash-2-thumb.jpg',
-        'gallery/adi-kailash-3-thumb.jpg',
-        'gallery/adi-kailash-4-thumb.jpg'
-      ]
-    },
-    {
-      key: 'om-parvat',
-      match: /om[\s-]?par[vw]at/i,
-      photos: [
-        'gallery/om-parvat-1-thumb.jpg',
-        'gallery/om-parvat-2-thumb.jpg',
-        'gallery/om-parvat-3-thumb.jpg'
-      ]
-    },
-    {
-      key: 'darma-valley',
-      match: /d[ha]?arma[\s-]?valley|panchachuli/i,
-      photos: [
-        'gallery/darma-valley-1-thumb.jpg',
-        'gallery/darma-valley-2-thumb.jpg',
-        'gallery/darma-valley-3-thumb.jpg'
-      ]
-    }
-  ];
-
-  /**
-   * slug -> gallery photo, assigned so no two packages share an image.
-   * A package is matched on every destination its title mentions, so once the
-   * Adi Kailash photos run out the next one falls back to Om Parvat, which
-   * those itineraries also cover.
-   */
-  private destinationImages = computed(() => {
-    const assigned: Record<string, string> = {};
-    const used = new Set<string>();
-
-    for (const pkg of this.packages()) {
-      const haystack = `${pkg.title} ${pkg.shortTitle} ${pkg.slug}`;
-
-      for (const pool of this.destinationPools) {
-        if (!pool.match.test(haystack)) continue;
-        const free = pool.photos.find(p => !used.has(p));
-        if (free) {
-          assigned[pkg.slug] = free;
-          used.add(free);
-          break;
-        }
-      }
-    }
-
-    return assigned;
-  });
+  /** slug -> gallery photo, assigned so no two packages share an image. */
+  private destinationImages = computed(() => this.imageService.assign(this.packages()));
 
   ngOnInit(): void {
     // Hardcoded packages render immediately (and during prerender for SEO).
@@ -198,8 +133,7 @@ export class PackagesComponent implements OnInit {
       if (destination) return destination;
     }
 
-    const id = this.images[index % this.images.length];
-    return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=600&q=80`;
+    return this.imageService.fallback(index);
   }
 
   formatPrice(price: number): string {

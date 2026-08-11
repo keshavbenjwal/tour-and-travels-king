@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SeoService } from '../../core/services/seo.service';
 import { PackagesService, TourPackage } from '../../core/services/packages.service';
+import { PackageImageService } from '../../core/services/package-image.service';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +14,15 @@ import { PackagesService, TourPackage } from '../../core/services/packages.servi
 export class HomeComponent implements OnInit, OnDestroy {
   private seo = inject(SeoService);
   private pkgService = inject(PackagesService);
+  private imageService = inject(PackageImageService);
 
   featuredPackages: TourPackage[] = [];
+
+  /**
+   * Assigned over the full package list, not just the featured three, so a
+   * package shows the same photo here as it does on the packages page.
+   */
+  private packageImages: Record<string, string> = {};
   activeTestimonial = signal(0);
   activeFaq = signal<number | null>(null);
   private testimonialInterval?: ReturnType<typeof setInterval>;
@@ -120,6 +128,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
 
     this.featuredPackages = this.pkgService.getFeatured();
+    this.packageImages = this.imageService.assign(this.pkgService.getAll());
 
     this.testimonialInterval = setInterval(() => {
       this.activeTestimonial.update(v => (v + 1) % this.testimonials.length);
@@ -140,5 +149,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   formatPrice(price: number): string {
     return new Intl.NumberFormat('en-IN').format(price);
+  }
+
+  /** Same destination photo this package uses on the packages page. */
+  getImage(pkg: TourPackage, index: number): string {
+    return this.packageImages[pkg.slug] ?? this.imageService.fallback(index);
   }
 }
