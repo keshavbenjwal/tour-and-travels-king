@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { AuthService } from '../services/auth.service';
   imports: [
     RouterOutlet, RouterLink, RouterLinkActive,
     MatToolbarModule, MatButtonModule, MatIconModule,
-    MatTooltipModule, MatDividerModule
+    MatTooltipModule, MatDividerModule, MatMenuModule
   ],
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.scss'

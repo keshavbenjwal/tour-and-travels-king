@@ -12,8 +12,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 16px;
+  padding: 8px 16px;
   background: #1a237e !important;
+  /* mat-toolbar is a fixed-height single row by default; let it grow instead
+     of hiding overflowing nav buttons. */
+  flex-wrap: wrap;
+  height: auto !important;
+  min-height: 64px;
 
   .toolbar-brand {
     display: flex;
@@ -43,10 +48,22 @@
     display: flex;
     gap: 4px;
     flex: 1;
+    /* Without this the row is clipped on narrow windows and buttons vanish. */
+    flex-wrap: wrap;
+    min-width: 0;
 
-    a.nav-active {
+    /* Covers both the plain links and the Admin dropdown trigger (a button). */
+    a.nav-active,
+    button.nav-active {
       background: rgba(255,255,255,0.15);
       border-radius: 4px;
+    }
+
+    .caret {
+      margin-left: 2px;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
     }
   }
 

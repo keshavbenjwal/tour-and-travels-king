@@ -7,15 +7,35 @@
     </div>
 
     <div class="toolbar-nav">
-      <a mat-button routerLink="/admin/dashboard" routerLinkActive="nav-active">
-        <mat-icon>dashboard</mat-icon> Dashboard
-      </a>
-      <a mat-button routerLink="/admin/packages/new">
+      <!-- Admin dropdown: Dashboard + Gallery -->
+      <button mat-button [matMenuTriggerFor]="adminMenu"
+              [class.nav-active]="dashboardLink.isActive || galleryLink.isActive">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Admin
+        <mat-icon class="caret">arrow_drop_down</mat-icon>
+      </button>
+
+      <mat-menu #adminMenu="matMenu">
+        <a mat-menu-item routerLink="/admin/dashboard">
+          <mat-icon>dashboard</mat-icon>
+          <span>Dashboard</span>
+        </a>
+        <a mat-menu-item routerLink="/admin/gallery">
+          <mat-icon>photo_library</mat-icon>
+          <span>Gallery</span>
+        </a>
+      </mat-menu>
+
+      <a mat-button routerLink="/admin/packages/new" routerLinkActive="nav-active">
         <mat-icon>add_circle</mat-icon> Add Package
       </a>
-      <a mat-button routerLink="/admin/gallery" routerLinkActive="nav-active">
-        <mat-icon>photo_library</mat-icon> Gallery
-      </a>
+
+      <!-- Hidden probes so the Admin button can show an active state for
+           either of its child routes. -->
+      <span hidden routerLink="/admin/dashboard" routerLinkActive
+            #dashboardLink="routerLinkActive"></span>
+      <span hidden routerLink="/admin/gallery" routerLinkActive
+            #galleryLink="routerLinkActive"></span>
     </div>
 
     <div class="toolbar-user">
