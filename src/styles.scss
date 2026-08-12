@@ -25,8 +25,15 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
   --transition: 0.3s ease;
-  --navbar-height: 72px;
+  --navbar-height: 96px;
   --container-max: 1280px;
+}
+
+/* A 96px bar takes too much of a phone screen; scale it back there. */
+@media (max-width: 600px) {
+  :root {
+    --navbar-height: 76px;
+  }
 }
 
 /* ===== RESET & BASE ===== */

@@ -35,9 +35,9 @@
 
   .logo-icon {
     /* The logo has its name ring baked into the artwork, so it needs to be
-       large enough to read. 56px is the most the 72px navbar allows. */
-    width: 56px;
-    height: 56px;
+       large enough to read. Sized against the 96px navbar. */
+    width: 80px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -149,10 +149,10 @@
   }
 
   /* Keep the logo and brand text from crowding the hamburger on phones. */
-  @media (max-width: 480px) {
+  @media (max-width: 600px) {
     .nav-logo .logo-icon {
-      width: 46px;
-      height: 46px;
+      width: 60px;
+      height: 60px;
     }
   }
 
