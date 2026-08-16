@@ -1,6 +1,7 @@
-import { Component, inject, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, signal, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { PublicPackagesService } from '../../core/services/public-packages.service';
 import { SeoService } from '../../core/services/seo.service';
 import { PackagesService, TourPackage } from '../../core/services/packages.service';
 import { PackageImageService } from '../../core/services/package-image.service';
@@ -15,8 +16,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   private seo = inject(SeoService);
   private pkgService = inject(PackagesService);
   private imageService = inject(PackageImageService);
+  private publicPkgService = inject(PublicPackagesService);
+  private platformId = inject(PLATFORM_ID);
 
-  featuredPackages: TourPackage[] = [];
+  /** Signal, not a plain array: this app is zoneless, so the Firestore
+      response would otherwise never repaint the cards. */
+  featuredPackages = signal<TourPackage[]>([]);
 
   /**
    * Assigned over the full package list, not just the featured three, so a
@@ -127,8 +132,24 @@ export class HomeComponent implements OnInit, OnDestroy {
       areaServed: 'Uttarakhand, India'
     });
 
-    this.featuredPackages = this.pkgService.getFeatured();
+    // Built-in packages render immediately, and during prerender for SEO.
+    this.featuredPackages.set(this.pkgService.getFeatured());
     this.packageImages = this.imageService.assign(this.pkgService.getAll());
+
+    // Then apply any admin edits, so prices here match the packages page.
+    if (isPlatformBrowser(this.platformId)) {
+      this.publicPkgService.getActive().subscribe({
+        next: firestorePkgs => {
+          if (!firestorePkgs.length) return;
+          const all = this.publicPkgService.mergeWithBuiltIn(
+            this.pkgService.getAll(), firestorePkgs
+          );
+          this.packageImages = this.imageService.assign(all);
+          this.featuredPackages.set(all.slice(0, 3));
+        },
+        error: err => console.error('[Home] Firestore error:', err)
+      });
+    }
 
     this.testimonialInterval = setInterval(() => {
       this.activeTestimonial.update(v => (v + 1) % this.testimonials.length);

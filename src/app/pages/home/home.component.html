@@ -88,7 +88,7 @@
     </div>
 
     <div class="packages-grid">
-      @for (pkg of featuredPackages; track pkg.id) {
+      @for (pkg of featuredPackages(); track pkg.slug) {
         <article class="pkg-card">
           @if (pkg.badge) {
             <span class="pkg-badge">{{ pkg.badge }}</span>
