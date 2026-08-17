@@ -1,6 +1,10 @@
 <!-- ===== HERO SECTION ===== -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  @for (img of heroImages; track img; let i = $index) {
+    <div class="hero-bg"
+         [class.active]="heroIndex() === i"
+         [style.background-image]="'url(' + img + ')'"></div>
+  }
   <div class="hero-overlay"></div>
   <div class="hero-content container">
     <div class="hero-badge">

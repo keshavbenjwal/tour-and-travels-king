@@ -7,14 +7,31 @@
   overflow: hidden;
 }
 
+/**
+ * Slideshow: every slide is stacked in the same box and only the active one is
+ * opaque, so slides cross-fade instead of flickering through a blank frame.
+ */
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('/gallery/adi-kailash-4.jpg');
   background-size: cover;
   background-position: center;
-  transform: scale(1.05);
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
   animation: slowZoom 20s ease-in-out infinite alternate;
+  will-change: opacity;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+/* Respect users who ask for less motion: no zoom, instant swap. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg {
+    animation: none;
+    transition: none;
+  }
 }
 
 @keyframes slowZoom {

@@ -23,6 +23,17 @@ export class HomeComponent implements OnInit, OnDestroy {
       response would otherwise never repaint the cards. */
   featuredPackages = signal<TourPackage[]>([]);
 
+  /** Hero background slideshow. */
+  readonly heroImages = [
+    'hero/hero-1.jpg',
+    'hero/hero-2.jpg',
+    'hero/hero-3.jpg',
+    'hero/hero-4.jpg',
+    'hero/hero-5.jpg'
+  ];
+  heroIndex = signal(0);
+  private heroInterval?: ReturnType<typeof setInterval>;
+
   /**
    * Assigned over the full package list, not just the featured three, so a
    * package shows the same photo here as it does on the packages page.
@@ -149,6 +160,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         },
         error: err => console.error('[Home] Firestore error:', err)
       });
+
+      // Advance the hero background every 3s. Browser-only so it does not keep
+      // the server from settling during prerender.
+      this.heroInterval = setInterval(() => {
+        this.heroIndex.update(i => (i + 1) % this.heroImages.length);
+      }, 3000);
     }
 
     this.testimonialInterval = setInterval(() => {
@@ -158,6 +175,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.testimonialInterval) clearInterval(this.testimonialInterval);
+    if (this.heroInterval) clearInterval(this.heroInterval);
   }
 
   toggleFaq(index: number): void {
