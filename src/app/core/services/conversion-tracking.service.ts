@@ -24,7 +24,7 @@ export class ConversionTrackingService {
     this.report(() => window.gtag_report_whatsapp_conversion?.());
   }
 
-  /** Phone call lead — someone tapped a tel: link. */
+  /** Click to call — someone tapped a tel: link. Reported as ₹1.00 INR. */
   reportPhoneCallConversion(): void {
     this.report(() => window.gtag_report_call_conversion?.());
   }
