@@ -35,18 +35,23 @@ export class App {
   private conversions = inject(ConversionTrackingService);
 
   /**
-   * Reports a Google Ads conversion for any WhatsApp link on the site.
+   * Reports Google Ads conversions for WhatsApp and phone links site-wide.
    *
-   * Handled in one place rather than on each anchor: the links live across the
-   * footer, floating buttons, packages, package detail and contact pages, and
-   * any new one would otherwise be missed. The click is not intercepted — the
-   * link opens exactly as before.
+   * Handled in one place rather than on each anchor: these links live across
+   * the footer, floating buttons, packages, package detail and contact pages,
+   * and any new one would otherwise be missed. The click is not intercepted —
+   * links open exactly as before.
    */
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const target = event.target as Element | null;
-    const link = target?.closest?.('a[href*="wa.me"]');
-    if (link) this.conversions.reportWhatsAppConversion();
+    if (!target?.closest) return;
+
+    if (target.closest('a[href*="wa.me"]')) {
+      this.conversions.reportWhatsAppConversion();
+    } else if (target.closest('a[href^="tel:"]')) {
+      this.conversions.reportPhoneCallConversion();
+    }
   }
 
   private currentUrl = toSignal(

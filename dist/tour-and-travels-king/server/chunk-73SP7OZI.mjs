@@ -1,0 +1,2 @@
+import './polyfills.server.mjs';
+import{l as i}from"./chunk-RBKNX773.mjs";import{U as t,Z as e,sa as a}from"./chunk-5B2YJWMY.mjs";var n=class r{platformId=e(a);reportWhatsAppConversion(){this.report(()=>window.gtag_report_whatsapp_conversion?.())}reportPhoneCallConversion(){this.report(()=>window.gtag_report_call_conversion?.())}report(o){if(i(this.platformId))try{o()}catch{}}static \u0275fac=function(p){return new(p||r)};static \u0275prov=t({token:r,factory:r.\u0275fac,providedIn:"root"})};export{n as a};

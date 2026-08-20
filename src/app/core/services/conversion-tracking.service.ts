@@ -1,10 +1,17 @@
 import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
-/** Defined by the Google Ads event snippet in index.html. */
+/**
+ * Defined by the Google Ads event snippets in index.html.
+ *
+ * Google names every snippet `gtag_report_conversion`, so they are renamed per
+ * conversion there — otherwise the last one loaded would overwrite the rest and
+ * every conversion would be reported under a single label.
+ */
 declare global {
   interface Window {
-    gtag_report_conversion?: (url?: string) => boolean;
+    gtag_report_whatsapp_conversion?: (url?: string) => boolean;
+    gtag_report_call_conversion?: (url?: string) => boolean;
   }
 }
 
@@ -12,19 +19,28 @@ declare global {
 export class ConversionTrackingService {
   private platformId = inject(PLATFORM_ID);
 
-  /**
-   * Reports a WhatsApp enquiry to Google Ads.
-   *
-   * Called without a URL on purpose: every WhatsApp link opens in a new tab, so
-   * this page is not unloading and the snippet's navigation callback is not
-   * needed. gtag sends the beacon regardless.
-   */
+  /** WhatsApp enquiry — reported as a ₹1.00 INR conversion. */
   reportWhatsAppConversion(): void {
+    this.report(() => window.gtag_report_whatsapp_conversion?.());
+  }
+
+  /** Phone call lead — someone tapped a tel: link. */
+  reportPhoneCallConversion(): void {
+    this.report(() => window.gtag_report_call_conversion?.());
+  }
+
+  /**
+   * Snippets are called without a URL on purpose. Their navigation callback
+   * exists for links that replace the current page; WhatsApp links open in a
+   * new tab and tel: links hand off to the dialer, so this page never unloads
+   * and gtag sends the beacon regardless.
+   */
+  private report(send: () => void): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
     try {
       // Absent if an ad blocker stopped gtag.js — not an error worth surfacing.
-      window.gtag_report_conversion?.();
+      send();
     } catch {
       /* tracking must never break the link the visitor clicked */
     }
