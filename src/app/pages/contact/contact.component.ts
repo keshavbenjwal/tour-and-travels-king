@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl } from '@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { SeoService } from '../../core/services/seo.service';
+import { ConversionTrackingService } from '../../core/services/conversion-tracking.service';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -17,6 +18,7 @@ export class ContactComponent implements OnInit {
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
   private platformId = inject(PLATFORM_ID);
+  private conversions = inject(ConversionTrackingService);
 
   formState = signal<FormState>('idle');
 
@@ -92,6 +94,9 @@ export class ContactComponent implements OnInit {
     ];
     const url = `https://wa.me/918272855150?text=${encodeURIComponent(lines.join('\n'))}`;
     if (isPlatformBrowser(this.platformId)) {
+      // Opened in code rather than via a link, so the global click handler in
+      // App never sees it — report the conversion here.
+      this.conversions.reportWhatsAppConversion();
       window.open(url, '_blank', 'noopener,noreferrer');
     }
 

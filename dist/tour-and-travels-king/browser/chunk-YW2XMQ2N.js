@@ -1,0 +1,1 @@
+import{g as a}from"./chunk-RLMZ4O46.js";import{X as o,aa as t,va as e}from"./chunk-VC3SZG7Y.js";var i=class r{platformId=t(e);reportWhatsAppConversion(){if(a(this.platformId))try{window.gtag_report_conversion?.()}catch{}}static \u0275fac=function(n){return new(n||r)};static \u0275prov=o({token:r,factory:r.\u0275fac,providedIn:"root"})};export{i as a};

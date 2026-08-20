@@ -24,6 +24,24 @@
 
     gtag('config', 'AW-18393228592');
   </script>
+
+  <!-- Event snippet for WhatsApp Enquiry conversion -->
+  <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-18393228592/0XSFCN-g6eQcELDKycJE',
+          'value': 1.0,
+          'currency': 'INR',
+          'event_callback': callback
+      });
+      return false;
+    }
+  </script>
 </head>
 <body>
   <app-root></app-root>
