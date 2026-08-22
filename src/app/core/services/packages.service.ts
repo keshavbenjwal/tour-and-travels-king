@@ -490,6 +490,95 @@ export class PackagesService {
           description: 'Early morning drive back to Dharchula along the river gorge. Arrive by mid-morning. Hot showers and a proper meal at a local restaurant. Rest before your onward journey. Transfer to Pithoragarh or Kathgodam as required. The Darma Valley will stay with you long after the journey ends.'
         }
       ]
+    },
+    {
+      id: '6',
+      slug: 'adi-kailash-delhi-6-days',
+      title: 'Adi Kailash & Om Parvat Yatra from Delhi',
+      shortTitle: 'Adi Kailash Delhi Yatra',
+      duration: '6 Days / 5 Nights',
+      days: 6,
+      nights: 5,
+      startLocation: 'Delhi',
+      endLocation: 'Delhi',
+      price: 21999,
+      originalPrice: 21999,
+      difficulty: 'Moderate',
+      maxAltitude: '4,750 m (Jolingkong)',
+      groupSize: '2–20 Persons',
+      badge: 'New',
+      metaDescription: 'Adi Kailash and Om Parvat yatra from Delhi — 6 days covering Gunji, Jolingkong, Parvati Kund and Kali Mata Temple, with homestays and meals included.',
+      keywords: 'Adi Kailash from Delhi, Om Parvat yatra Delhi, Delhi to Adi Kailash package, Gunji Nabhi tour, Kailash Om Parvat 6 days',
+      highlights: [
+        'Adi Kailash Darshan',
+        'Om Parvat Darshan',
+        'Parvati Kund / Parvati Sarovar and Gauri Kund',
+        'Kali Mata Temple at Kalapani, source of the Kali River',
+        'Gunji / Nabhi Himalayan homestay experience',
+        'Dharchula and the scenic Kali River valley',
+        'Scenic Himalayan mountain drive',
+        'Spiritual and adventure experience'
+      ],
+      includes: [
+        'Transportation from Pithoragarh throughout the tour',
+        'Accommodation / Homestay in Gunji',
+        'Accommodation / Homestay in Darma Valley',
+        'Adi Kailash Darshan',
+        'Breakfast & Dinner',
+        'Panchachuli Trek Assistance',
+        'Driver / Tour Assistance',
+        'Om Parvat Darshan',
+        'Local Sightseeing',
+        'Basic Tour Coordination'
+      ],
+      excludes: [
+        'Lunch',
+        'Personal Expenses',
+        'Medical & Emergency Expenses',
+        'Pony / Horse Charges, if required',
+        'Personal Porter Charges',
+        'Additional vehicle charges caused by weather or road conditions',
+        'Any service not specifically mentioned under "Package Includes"'
+      ],
+      overview: `A carefully planned Himalayan spiritual and adventure journey that begins and ends in Delhi, so there is nothing to arrange yourself. Over six days you travel from the plains to Pithoragarh, on through Dharchula and the Kali River valley to the border village of Gunji, and up to the sacred heights of Adi Kailash and Om Parvat. The yatra includes darshan at Adi Kailash and Parvati Sarovar, the holy Gauri Kund, Om Parvat, and the Kali Mata Temple at Kalapani, where the Kali River rises. Nights are spent in Himalayan homestays, with breakfast and dinner included throughout, and the entire route is covered by private vehicle. A journey of faith, adventure and unforgettable mountain landscapes.`,
+      itinerary: [
+        {
+          day: 1,
+          title: 'Delhi → Pithoragarh',
+          altitude: '1,814 m',
+          description: 'Morning pickup from Delhi and a scenic drive up into the Kumaon hills, passing Himalayan villages and sweeping mountain views along the way. Arrive at Pithoragarh and check in to your homestay. Evening at leisure to rest before the higher altitudes ahead. Dinner and overnight at Pithoragarh.'
+        },
+        {
+          day: 2,
+          title: 'Pithoragarh → Dharchula → Gunji / Nabhi',
+          altitude: '3,200 m',
+          description: 'After breakfast, begin the journey from Pithoragarh towards Gunji/Nabhi via Dharchula. The road follows the Kali River through spectacular Himalayan valleys, with the landscape opening out as you climb towards the border region. Arrive at Gunji/Nabhi and settle in. Breakfast and dinner included. Overnight in a Gunji/Nabhi homestay.'
+        },
+        {
+          day: 3,
+          title: 'Gunji → Jolingkong → Adi Kailash → Gunji',
+          altitude: '4,750 m',
+          description: 'The spiritual heart of the yatra. After an early breakfast, drive to Jolingkong for darshan of Adi Kailash. Visit Parvati Kund (Parvati Sarovar) and Gauri Kund, and take in the magnificent Himalayan views surrounding the sacred valley. After darshan and sightseeing, return to Gunji/Nabhi in the evening. Breakfast and dinner included. Overnight at Gunji.'
+        },
+        {
+          day: 4,
+          title: 'Gunji → Om Parvat → Kali Mata Temple',
+          altitude: '4,500 m',
+          description: 'After an early breakfast, proceed to the Om Parvat darshan point for a view of the sacred mountain and panoramic Himalayan scenery. Continue to the Kali Mata Temple at Kalapani, near Om Parvat — the origin of the Kali River and an important pilgrimage spot for devotees. Breakfast and dinner included. Overnight at Gunji/Nabhi.'
+        },
+        {
+          day: 5,
+          title: 'Gunji / Nabhi → Pithoragarh',
+          altitude: '1,814 m',
+          description: 'Morning breakfast before beginning the return drive towards Pithoragarh, once more through Himalayan villages and beautiful mountain country. Arrive at Pithoragarh in the evening. Dinner and overnight at the homestay.'
+        },
+        {
+          day: 6,
+          title: 'Pithoragarh → Delhi',
+          altitude: '216 m',
+          description: 'After breakfast, begin the return journey towards Delhi, reaching the city by evening. Drop in Delhi with divine Himalayan memories. The tour concludes at the last stop.'
+        }
+      ]
     }
   ];
 

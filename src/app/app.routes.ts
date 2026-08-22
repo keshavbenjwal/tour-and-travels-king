@@ -42,6 +42,11 @@ export const routes: Routes = [
     title: 'Darma Valley & Panchachuli Adventure | Kumaon Yatra Tours'
   },
   {
+    path: 'packages/adi-kailash-delhi-6-days',
+    loadComponent: () => import('./pages/package-detail/package-detail.component').then(m => m.PackageDetailComponent),
+    title: 'Adi Kailash & Om Parvat from Delhi – 6 Days | Kumaon Yatra Tours'
+  },
+  {
     path: 'gallery',
     loadComponent: () => import('./pages/gallery/gallery.component').then(m => m.GalleryComponent),
     title: 'Gallery | Kumaon Yatra Tours'

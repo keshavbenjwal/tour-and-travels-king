@@ -9,6 +9,7 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'packages/adi-kailash-7-days', renderMode: RenderMode.Prerender },
   { path: 'packages/adi-kailash-9-days', renderMode: RenderMode.Prerender },
   { path: 'packages/darma-valley-panchachuli', renderMode: RenderMode.Prerender },
+  { path: 'packages/adi-kailash-delhi-6-days', renderMode: RenderMode.Prerender },
   { path: 'gallery', renderMode: RenderMode.Prerender },
   { path: 'contact', renderMode: RenderMode.Prerender },
   { path: 'admin', renderMode: RenderMode.Client },
