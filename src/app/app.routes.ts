@@ -47,6 +47,11 @@ export const routes: Routes = [
     title: 'Adi Kailash & Om Parvat from Delhi – 6 Days | Kumaon Yatra Tours'
   },
   {
+    path: 'packages/adi-kailash-darma-valley-delhi-8-days',
+    loadComponent: () => import('./pages/package-detail/package-detail.component').then(m => m.PackageDetailComponent),
+    title: 'Adi Kailash, Om Parvat & Darma Valley – 8 Days | Kumaon Yatra Tours'
+  },
+  {
     path: 'gallery',
     loadComponent: () => import('./pages/gallery/gallery.component').then(m => m.GalleryComponent),
     title: 'Gallery | Kumaon Yatra Tours'

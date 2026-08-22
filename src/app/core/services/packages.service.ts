@@ -505,7 +505,7 @@ export class PackagesService {
       originalPrice: 21999,
       difficulty: 'Moderate',
       maxAltitude: '4,750 m (Jolingkong)',
-      groupSize: '2–20 Persons',
+      groupSize: '4–20 Persons',
       badge: 'New',
       metaDescription: 'Adi Kailash and Om Parvat yatra from Delhi — 6 days covering Gunji, Jolingkong, Parvati Kund and Kali Mata Temple, with homestays and meals included.',
       keywords: 'Adi Kailash from Delhi, Om Parvat yatra Delhi, Delhi to Adi Kailash package, Gunji Nabhi tour, Kailash Om Parvat 6 days',
@@ -577,6 +577,107 @@ export class PackagesService {
           title: 'Pithoragarh → Delhi',
           altitude: '216 m',
           description: 'After breakfast, begin the return journey towards Delhi, reaching the city by evening. Drop in Delhi with divine Himalayan memories. The tour concludes at the last stop.'
+        }
+      ]
+    },
+    {
+      id: '7',
+      slug: 'adi-kailash-darma-valley-delhi-8-days',
+      title: 'Adi Kailash, Om Parvat & Darma Valley Yatra from Delhi',
+      shortTitle: 'Adi Kailash & Darma Valley Yatra',
+      duration: '8 Days / 7 Nights',
+      days: 8,
+      nights: 7,
+      startLocation: 'Delhi',
+      endLocation: 'Delhi',
+      price: 24999,
+      originalPrice: 24999,
+      difficulty: 'Moderate',
+      maxAltitude: '4,750 m (Jolingkong)',
+      groupSize: '4–20 Persons',
+      badge: 'New',
+      metaDescription: 'Adi Kailash, Om Parvat and Darma Valley yatra from Delhi — 8 days covering Gunji, Panchachuli, Jageshwar Dham and Chitai, with homestays and meals included.',
+      keywords: 'Adi Kailash Darma Valley package, Om Parvat Panchachuli tour, Delhi to Adi Kailash 8 days, Jageshwar Chitai tour, Kumaon yatra from Delhi',
+      highlights: [
+        'Adi Kailash Darshan',
+        'Om Parvat Darshan',
+        'Parvati Kund, Gauri Kund and Bheem Ki Kheti',
+        'Kali Mata Temple at Kalapani, source of the Kali River',
+        'Darma Valley exploration and Panchachuli trekking',
+        'Jageshwar Dham and Chitai Golu Devta Mandir darshan',
+        'Gunji / Nabhi Himalayan homestay experience',
+        'Scenic Himalayan mountain drive'
+      ],
+      includes: [
+        'Transportation from Pithoragarh throughout the tour',
+        'Accommodation / Homestay in Gunji',
+        'Accommodation / Homestay in Darma Valley',
+        'Adi Kailash Darshan',
+        'Breakfast & Dinner',
+        'Panchachuli Trek Assistance',
+        'Driver / Tour Assistance',
+        'Om Parvat Darshan',
+        'Local Sightseeing',
+        'Basic Tour Coordination'
+      ],
+      excludes: [
+        'Lunch',
+        'Personal Expenses',
+        'Medical & Emergency Expenses',
+        'Pony / Horse Charges, if required',
+        'Personal Porter Charges',
+        'Additional vehicle charges caused by weather or road conditions',
+        'Any service not specifically mentioned under "Package Includes"'
+      ],
+      overview: `The complete Kumaon yatra, beginning and ending in Delhi. Over eight days this journey reaches the sacred heights of Adi Kailash and Om Parvat, then continues into the remote Darma Valley beneath the five peaks of Panchachuli, and returns by way of the ancient temple towns of the lower hills. You will take darshan at Adi Kailash, Parvati Kund, Gauri Kund and Bheem Ki Kheti, stand before Om Parvat, visit the Kali Mata Temple at Kalapani where the Kali River rises, trek in the Panchachuli meadows, and finish at the 7th-century stone temples of Jageshwar Dham and the Chitai Golu Devta Mandir. Nights are spent in Himalayan homestays with breakfast and dinner included, and the whole route is covered by private vehicle.`,
+      itinerary: [
+        {
+          day: 1,
+          title: 'Delhi → Pithoragarh',
+          altitude: '1,814 m',
+          description: 'Morning pickup from Delhi and a scenic drive into the Kumaon hills, passing Himalayan villages and beautiful mountain views. Arrive at Pithoragarh and check in to your homestay. Evening at leisure, with time to rest before the higher altitudes ahead. Dinner and overnight at Pithoragarh.'
+        },
+        {
+          day: 2,
+          title: 'Pithoragarh → Dharchula → Gunji / Nabhi',
+          altitude: '3,200 m',
+          description: 'After breakfast, begin the journey from Pithoragarh towards Gunji/Nabhi via Dharchula. The road follows the scenic Kali River through spectacular Himalayan valleys, climbing steadily towards the border region. Arrive at Gunji/Nabhi and settle in for the night. Breakfast and dinner included. Overnight in a Gunji/Nabhi homestay.'
+        },
+        {
+          day: 3,
+          title: 'Gunji / Nabhi → Jolingkong → Adi Kailash → Gunji / Nabhi',
+          altitude: '4,750 m',
+          description: 'After an early breakfast, drive to Jolingkong for darshan of Adi Kailash. Visit Parvati Kund (Parvati Sarovar), Gauri Kund and Bheem Ki Kheti, and take in the magnificent Himalayan views around the sacred valley. After darshan and sightseeing, return to Gunji/Nabhi in the evening. Breakfast and dinner included. Overnight at Gunji/Nabhi.'
+        },
+        {
+          day: 4,
+          title: 'Gunji → Om Parvat → Kali Mata Temple → Darma Valley',
+          altitude: '4,500 m',
+          description: 'After an early breakfast, proceed to the Om Parvat darshan point for a view of the sacred mountain and panoramic Himalayan scenery. Visit the Kali Mata Temple at Kalapani near Om Parvat — the origin of the Kali River and an important pilgrimage spot for devotees. Afterwards, continue across to the Darma Valley. Breakfast and dinner included. Overnight in Darma Valley.'
+        },
+        {
+          day: 5,
+          title: 'Darma Valley & Panchachuli',
+          altitude: '4,400 m',
+          description: 'Morning breakfast, then a full day exploring the Darma Valley, with trekking and sightseeing beneath the five sacred peaks of Panchachuli. Walk among alpine meadows and traditional Himalayan villages before returning to your homestay. Dinner and overnight in Darma Valley.'
+        },
+        {
+          day: 6,
+          title: 'Darma Valley → Pithoragarh',
+          altitude: '1,814 m',
+          description: 'After breakfast, begin the return journey towards Pithoragarh, descending through Himalayan villages and beautiful mountain country. Reach Pithoragarh by evening. Overnight at Pithoragarh.'
+        },
+        {
+          day: 7,
+          title: 'Pithoragarh → Jageshwar → Chitai → Almora',
+          altitude: '1,638 m',
+          description: 'After breakfast, proceed towards Jageshwar Dham for darshan at its cluster of ancient stone temples set among towering deodar cedars. Continue to the Chitai Golu Devta Mandir, famous for the thousands of bells and written petitions left by devotees. Carry on towards Almora. Overnight at Almora.'
+        },
+        {
+          day: 8,
+          title: 'Almora → Delhi',
+          altitude: '216 m',
+          description: 'After breakfast, proceed from Almora to Delhi. Drop in Delhi and the yatra concludes, with divine Himalayan memories to carry home.'
         }
       ]
     }
